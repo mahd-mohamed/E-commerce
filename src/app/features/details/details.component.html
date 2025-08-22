@@ -1,0 +1,128 @@
+<div class="product-details-container">
+  <!-- Loading State -->
+  @if (!productdetails._id) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading product details...</p>
+    </div>
+  }
+
+  <!-- Product Details Content -->
+  @if (productdetails._id) {
+    <div class="product-details-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a routerLink="/" class="breadcrumb-item">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a [routerLink]="['/product']" class="breadcrumb-item">Products</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item active">{{ productdetails.title }}</span>
+      </nav>
+
+      <div class="product-main">
+        <!-- Product Images Section -->
+        <div class="product-images-section">
+          <div class="main-image-container">
+            <img [src]="selectedImage || productdetails.imageCover" 
+                 [alt]="productdetails.title"
+                 class="main-image">
+            <!-- Discount Badge -->
+            @if (productdetails.priceAfterDiscount) {
+              <div class="discount-badge">
+                {{ getDiscountPercentage(productdetails.price, productdetails.priceAfterDiscount) }}% OFF
+              </div>
+            }
+          </div>
+          
+          <!-- Image Gallery -->
+          @if (productdetails.images && productdetails.images.length > 0) {
+            <div class="image-gallery">
+              <div class="gallery-grid">
+                @for (image of productdetails.images.slice(0, 4); track image) {
+                  <div class="gallery-item"
+                       (click)="selectImage(image)">
+                    <img [src]="image" [alt]="productdetails.title" class="gallery-image">
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Product Info Section -->
+        <div class="product-info-section">
+          <!-- Product Header -->
+          <div class="product-header">
+            <h1 class="product-title">{{ productdetails.title }}</h1>
+            <div class="product-meta">
+              <span class="category-badge">{{ productdetails.category.name }}</span>
+              @if (productdetails.brand) {
+                <span class="brand-badge">{{ productdetails.brand.name }}</span>
+              }
+            </div>
+          </div>
+
+          <!-- Rating Section -->
+          <div class="rating-section">
+            <div class="rating-stars">
+              @for (star of getRatingStars(productdetails.ratingsAverage); track star) {
+                <i [class]="star" 
+                   class="star-icon"></i>
+              }
+            </div>
+            <span class="rating-text">{{ productdetails.ratingsAverage.toFixed(1) || '0.0' }}</span>
+            <span class="rating-count">({{ productdetails.ratingsQuantity || 0 }} reviews)</span>
+          </div>
+
+          <!-- Price Section -->
+          <div class="price-section">
+            <div class="price-container">
+              @if (productdetails.priceAfterDiscount) {
+                <span class="current-price">
+                  ${{ productdetails.priceAfterDiscount }}
+                </span>
+              }
+              <span [class]="productdetails.priceAfterDiscount ? 'original-price' : 'current-price'">
+                ${{ productdetails.price }}
+              </span>
+              @if (productdetails.priceAfterDiscount) {
+                <span class="savings">
+                  Save ${{ productdetails.price - productdetails.priceAfterDiscount }}
+                </span>
+              }
+            </div>
+          </div>
+
+          <!-- Stock Status -->
+          <div class="stock-section">
+            <div class="stock-status" [class.in-stock]="productdetails.quantity > 0" [class.out-of-stock]="productdetails.quantity <= 0">
+              <i [class]="productdetails.quantity > 0 ? 'fas fa-check-circle' : 'fas fa-times-circle'"></i>
+              <span>{{ productdetails.quantity > 0 ? 'In Stock' : 'Out of Stock' }}</span>
+              @if (productdetails.quantity > 0) {
+                <span class="stock-count">({{ productdetails.quantity }} available)</span>
+              }
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="description-section">
+            <h3 class="section-title">Description</h3>
+            <p class="product-description">{{ productdetails.description }}</p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-section">
+            <div class="action-buttons">
+              <button (click)="addToCart()" 
+                      class="btn btn-primary" 
+                      [disabled]="productdetails.quantity <= 0">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

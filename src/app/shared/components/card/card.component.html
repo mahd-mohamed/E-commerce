@@ -1,0 +1,60 @@
+<div [routerLink]='["/details",product._id,product.slug]' class="product-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-700 flex flex-col">
+            
+  <!-- Product Image -->
+  <div class="relative overflow-hidden group image-container">
+    <img [src]="product.imageCover" 
+         [alt]="product.title"
+         class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300">
+    
+    <!-- Discount Badge -->
+    @if (product.priceAfterDiscount) {
+      <div class="absolute top-1 left-1 bg-red-500 text-white px-1.5 py-0.5 rounded-full text-xs font-semibold shadow-lg">
+        {{ getDiscountPercentage(product.price, product.priceAfterDiscount) }}% OFF
+      </div>
+    }
+    
+
+  </div>
+
+  <!-- Product Info -->
+  <div class="p-2 flex-1 flex flex-col">
+    <div class="mb-1">
+      <span class="text-xs text-green-400 font-medium bg-green-900/20 px-1.5 py-0.5 rounded-full">{{ product.category.name }}</span>
+    </div>
+    
+    <h3 class="font-semibold text-white mb-1 line-clamp-2 hover:text-green-400 cursor-pointer transition-colors text-sm flex-1" (click)="viewProduct(product)">
+      {{ product.title }}
+    </h3>
+    
+    <!-- Rating -->
+    <div class="flex items-center mb-1">
+      <div class="flex items-center">
+        <i class="fas fa-star text-yellow-400 text-xs"></i>
+        <span class="text-xs text-gray-300 ml-1">{{ product.ratingsAverage.toFixed(1) || '0.0' }}</span>
+      </div>
+      <span class="text-xs text-gray-500 ml-2">({{ product.ratingsQuantity || 0 }})</span>
+    </div>
+    
+    <!-- Price -->
+    <div class="flex items-center justify-between mb-1">
+      <div class="flex items-center gap-1">
+        @if (product.priceAfterDiscount) {
+          <span class="text-sm font-bold text-green-400">
+            ${{ product.priceAfterDiscount }}
+          </span>
+        }
+        <span [class]="product.priceAfterDiscount ? 'text-xs text-gray-500 line-through' : 'text-sm font-bold text-white'">
+          ${{ product.price }}
+        </span>
+      </div>
+      <span class="text-xs text-gray-400 bg-gray-700 px-1.5 py-0.5 rounded-full">{{ product.quantity }} left</span>
+    </div>
+    
+    <!-- Action Buttons - Fixed at bottom -->
+    <div class="flex gap-1.5 mt-auto">
+      <button (click)="addToCart(product, $event)" class="flex-1 p-3 cursor-pointer bg-green-600 text-white py-1.5 px-2 rounded-md hover:bg-green-700 transition-colors font-medium shadow-lg text-xs">
+        Add to Cart
+      </button>
+
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="popular-categories-section">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-4">Popular Categories</h2>
+      <p class="max-w-2xl mx-auto">Discover our wide range of product categories, carefully curated for your shopping needs.</p>
+    </div>
+
+    <!-- Swiper Container -->
+    <div class="swiper category-swiper" #swiperContainer *ngIf="categoriesList.length > 0">
+      <div class="swiper-wrapper">
+        <!-- Category Slides -->
+        <div class="swiper-slide" *ngFor="let category of categoriesList; trackBy: trackByCategory">
+          <div class="category-card">
+            <div class="category-image-container">
+              <img 
+                [src]="category.image" 
+                [alt]="category.name"
+                (error)="onImageError($event)"
+                loading="lazy"
+              >
+              <div class="category-content">
+                <h3>{{ category.name }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation Arrows - Enhanced positioning -->
+      <div class="swiper-button-next" aria-label="Next slide"></div>
+      <div class="swiper-button-prev" aria-label="Previous slide"></div>
+      
+      <!-- Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-12">
+      <div class="loading-spinner mx-auto"></div>
+      <p class="mt-4 text-gray-400">Loading categories...</p>
+    </div>
+
+    <!-- No Categories State -->
+    <div *ngIf="categoriesList.length === 0 && !isLoading" class="text-center py-12">
+      <div class="error-state">
+        <svg class="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-300">No categories found</h3>
+        <p class="mt-1 text-sm text-gray-500">Try refreshing the page or check your connection.</p>
+      </div>
+    </div>
+  </div>
+</div>

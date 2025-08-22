@@ -1,0 +1,316 @@
+
+
+/* Dark Theme Background */
+.bg-gray-900 {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-gray-900::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(10, 173, 10, 0.05) 0%, rgba(16, 185, 129, 0.02) 100%);
+  pointer-events: none;
+}
+
+/* Section header styling - matching Popular Categories */
+.bg-gray-900 h2 {
+  background: linear-gradient(135deg, #ffffff, #0aad0a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(10, 173, 10, 0.3);
+}
+
+.bg-gray-900 p {
+  color: #9ca3af;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Center Class - Perfect centering for mobile */
+.mobile-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Responsive Grid Layout */
+@media (min-width: 1024px) {
+  /* Large screens - 6-column grid */
+  .mobile-center {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  /* Medium screens - 3-column grid */
+  .mobile-center {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  /* Small screens - 2-column grid */
+  .mobile-center {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Mobile screens - 1-column grid with perfect centering */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 20rem;
+    margin: 0 auto;
+  }
+}
+
+/* Loading state */
+.loading-spinner {
+  border: 3px solid #374151;
+  border-top: 3px solid #10b981;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  animation: spin 1s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.3));
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus States - Dark Theme */
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+/* Grid gap optimization for 6-column layout */
+@media (min-width: 1024px) {
+  .grid {
+    gap: 0.75rem; /* 12px - tighter spacing for 6-column grid */
+  }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Better mobile grid layout */
+  .mobile-center {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 1.5rem;
+    padding: 0 1rem;
+    justify-items: center; /* Center cards horizontally */
+    align-items: center; /* Center cards vertically */
+  }
+  
+  /* Ensure proper centering on mobile */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .mobile-center {
+    width: 100%;
+    max-width: 20rem; /* Match card max-width */
+  }
+}
+
+/* Custom Pagination Styling */
+.custom-pagination ::ng-deep .ngx-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+  scroll-behavior: smooth;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination li {
+  margin: 0;
+  padding: 0;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination a,
+.custom-pagination ::ng-deep .ngx-pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none !important;
+  background: transparent !important;
+  color: #d1d5db !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination a:hover,
+.custom-pagination ::ng-deep .ngx-pagination span:hover {
+  background: transparent !important;
+  color: #10b981 !important;
+  border: none !important;
+  transform: translateY(-2px);
+  box-shadow: none !important;
+}
+
+/* Active page styling - more specific selectors */
+.custom-pagination ::ng-deep .ngx-pagination .current,
+.custom-pagination ::ng-deep .ngx-pagination .current:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current a,
+.custom-pagination ::ng-deep .ngx-pagination li.current span,
+.custom-pagination ::ng-deep .ngx-pagination li.current a:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current span:hover {
+  background: transparent !important;
+  color: #10b981 !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: scale(1.05);
+  font-weight: 700 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .current:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current a:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current span:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: transparent !important;
+  color: #9ca3af !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .disabled:hover {
+  background: transparent !important;
+  transform: none;
+  box-shadow: none !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .pagination-previous,
+.custom-pagination ::ng-deep .ngx-pagination .pagination-next {
+  font-weight: 600;
+  min-width: 3rem;
+  background: transparent !important;
+  border: none !important;
+  color: #10b981 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .pagination-previous:hover,
+.custom-pagination ::ng-deep .ngx-pagination .pagination-next:hover {
+  background: transparent !important;
+  border: none !important;
+  color: #10b981 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .pagination-previous.disabled,
+.custom-pagination ::ng-deep .ngx-pagination .pagination-next.disabled {
+  background: transparent !important;
+  border: none !important;
+  color: #6b7280 !important;
+}
+
+/* Force override for all pagination elements */
+.custom-pagination ::ng-deep .ngx-pagination * {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Additional specific override for current page */
+.custom-pagination ::ng-deep .ngx-pagination li.current *,
+.custom-pagination ::ng-deep .ngx-pagination .current * {
+  color: #10b981 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination a:focus,
+.custom-pagination ::ng-deep .ngx-pagination span:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent unwanted scrolling */
+.custom-pagination ::ng-deep .ngx-pagination a:active,
+.custom-pagination ::ng-deep .ngx-pagination span:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+/* Responsive pagination */
+@media (max-width: 640px) {
+  .custom-pagination ::ng-deep .ngx-pagination {
+    gap: 0.25rem;
+  }
+  
+  .custom-pagination ::ng-deep .ngx-pagination a,
+  .custom-pagination ::ng-deep .ngx-pagination span {
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .custom-pagination ::ng-deep .ngx-pagination .pagination-previous,
+  .custom-pagination ::ng-deep .ngx-pagination .pagination-next {
+    min-width: 2.5rem;
+  }
+}
+
+/* Animation for page changes */
+.custom-pagination ::ng-deep .ngx-pagination li {
+  transition: all 0.3s ease;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination li:hover {
+  transform: translateY(-1px);
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent jumpy scrolling during page changes */
+.products-container {
+  scroll-behavior: smooth;
+  overflow-anchor: none;
+}

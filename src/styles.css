@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+/* Swiper CSS imports */
+@import 'swiper/css';
+@import 'swiper/css/autoplay';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+@import 'swiper/css/effect-fade';
+
+:root {
+  --main-color: #0aad0a;
+}
+
+/* Zoom 75% for the entire application */
+html {
+  zoom: 85%;
+}
+
+
+.btn-main {
+  background-color: var(--main-color);
+  padding: 8px 22px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+.btn-main:hover {
+  background-color: #11bd11;
+  box-shadow: 0 4px 10px rgba(0, 170, 10, 0.4);
+}
+
