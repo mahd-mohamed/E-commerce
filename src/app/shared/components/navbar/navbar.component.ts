@@ -1,8 +1,9 @@
 import { initFlowbite } from 'flowbite';
 import { FlowbiteService } from './../../../core/services/flowbite.service';
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ export class NavbarComponent implements OnInit {
   isScrolled = false;
   
   constructor(private flowbiteService: FlowbiteService) {}
+  private readonly authService = inject(AuthService)
 
   ngOnInit(): void {
     try {
@@ -53,5 +55,8 @@ export class NavbarComponent implements OnInit {
     if (this.isMobileMenuOpen) {
       this.closeMobileMenu();
     }
+  }
+  logout(): void {
+    this.authService.logout();
   }
 }

@@ -1,3 +1,4 @@
+import { isloggedGuard } from './core/guards/islogged-guard';
 import { CategoriesComponent } from './features/categories/categories.component';
 import { BlankLayoutComponent } from './core/layouts/blank-layout/blank-layout.component';
 import { Routes } from '@angular/router';
@@ -11,12 +12,14 @@ import { BrandsComponent } from './features/brands/brands.component';
 import { DetailsComponent } from './features/details/details.component';
 import { CheckoutComponent } from './features/checkout/checkout.component';
 import { NotfoundComponent } from './features/notfound/notfound.component';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '',
     component: AuthLayoutComponent,
+    canActivate: [isloggedGuard],
     children: [
       { path: 'login', component: LoginComponent, title: 'Login' },
       { path: 'register', component: RegisterComponent, title: 'Register' },
@@ -25,6 +28,7 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
+    canActivate: [authGuard],
     children: [
       { path: 'home', component: HomeComponent, title: 'Home' },
       { path: 'cart', component: CartComponent, title: 'Cart' },

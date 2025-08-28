@@ -1,9 +1,11 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
+import { log } from 'console';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,6 +17,8 @@ export class LoginComponent implements OnInit {
     private readonly authService = inject(AuthService)
     private readonly router = inject(Router)
     subscribtion:Subscription =new Subscription();
+    private readonly cookieService = inject(CookieService)
+
 
   msgerror:string=''
   isLoading: boolean = false;
@@ -45,8 +49,11 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           console.log(response);
           this.isLoading = false;
+
           //navigate to login
           if(response.message=='success'){
+            this.cookieService.set('token',response.token)
+            console.log (this.authService.decodeToken());
             this.msgerror = '';
             setTimeout(() => {
               this.router.navigate(['/home'])
