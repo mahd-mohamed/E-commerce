@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
 
@@ -23,13 +23,20 @@ export class RegisterComponent {
   showPassword: boolean = false;
   showRePassword: boolean = false;
   
-  RegisterForm: FormGroup = new FormGroup({
+  RegisterForm!: FormGroup 
+  ngOnInit(): void {
+    this.intitForm()
+  }
+
+  intitForm():void {
+    this.RegisterForm = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
     rePassword: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
     phone: new FormControl(null, [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]),
   },{validators:this.confirmpassword});
+  }
 
   confirmpassword(group:AbstractControl){
     let password=group.get('password')?.value;

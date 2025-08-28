@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
 
@@ -20,10 +20,16 @@ export class LoginComponent {
   // Password visibility state
   showPassword: boolean = false;
   
-  LoginForm: FormGroup = new FormGroup({
+  LoginForm!: FormGroup 
+  ngOnInit(): void {
+    this.intitForm()
+  }
+  intitForm():void {
+    this.LoginForm  = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
   });
+  }
 
   
 
