@@ -19,6 +19,10 @@ export class RegisterComponent {
   msgerror:string=''
   isLoading: boolean = false;
   
+  // Password visibility states
+  showPassword: boolean = false;
+  showRePassword: boolean = false;
+  
   RegisterForm: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -70,6 +74,15 @@ export class RegisterComponent {
 
       this.RegisterForm.markAllAsTouched();
     }
+  }
+
+  // Password visibility toggle methods
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleRePasswordVisibility() {
+    this.showRePassword = !this.showRePassword;
   }
 }
 

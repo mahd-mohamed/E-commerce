@@ -17,6 +17,9 @@ export class LoginComponent {
   msgerror:string=''
   isLoading: boolean = false;
   
+  // Password visibility state
+  showPassword: boolean = false;
+  
   LoginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
@@ -54,5 +57,10 @@ export class LoginComponent {
       
       this.LoginForm.markAllAsTouched();
     }
+  }
+
+  // Password visibility toggle method
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

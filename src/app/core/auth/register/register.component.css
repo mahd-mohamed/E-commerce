@@ -77,6 +77,23 @@ label {
   text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
 }
 
+/* Ensure placeholder is transparent and label positioning works */
+.form-input::placeholder {
+  color: transparent;
+}
+
+.form-input:focus::placeholder {
+  color: transparent;
+}
+
+/* Label positioning for floating label effect */
+.form-input:not(:placeholder-shown) + label,
+.form-input:focus + label {
+  top: 0.5rem;
+  font-size: 0.875rem;
+  color: #10b981;
+}
+
 /* Alert styling that matches the dark theme */
 .alert-error {
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
