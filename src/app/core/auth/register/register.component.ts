@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,8 @@ import { AuthService } from '../services/auth.service';
 export class RegisterComponent implements OnInit {
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
+  subscribtion:Subscription = new Subscription();
+  
 
   msgerror:string=''
   isLoading: boolean = false;
@@ -52,10 +55,12 @@ export class RegisterComponent implements OnInit {
 
   SubmitForm() {
     if (this.RegisterForm.valid) {
+      this.subscribtion.unsubscribe();
+
       this.isLoading = true;
       this.msgerror = ''; // Clear previous errors
       
-      this.authService.registerForm(this.RegisterForm.value).subscribe({
+      this.subscribtion = this.authService.registerForm(this.RegisterForm.value).subscribe({
         next: (response) => {
           console.log(response);
           this.isLoading = false;

@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -12,7 +13,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
     private readonly authService = inject(AuthService)
-  private readonly router = inject(Router)
+    private readonly router = inject(Router)
+    subscribtion:Subscription =new Subscription();
 
   msgerror:string=''
   isLoading: boolean = false;
@@ -35,10 +37,11 @@ export class LoginComponent implements OnInit {
 
   SubmitForm() {
     if (this.LoginForm.valid) {
+      this.subscribtion.unsubscribe();
       this.isLoading = true;
       this.msgerror = ''; // Clear previous errors
       
-      this.authService.loginForm(this.LoginForm.value).subscribe({
+      this.subscribtion = this.authService.loginForm(this.LoginForm.value).subscribe({
         next: (response) => {
           console.log(response);
           this.isLoading = false;
