@@ -12,8 +12,15 @@
         <div class="relative">
           <input formControlName="name"
            id="name" name="name" type="text" placeholder=" "
-                 class="form-input peer w-full rounded-xl bg-gray-900/60 border border-gray-700 text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent" />
-          <label for="name" class="absolute left-4 top-2 text-sm text-gray-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Name</label>
+                 [class.border-green-500]="RegisterForm.get('name')?.valid && (RegisterForm.get('name')?.touched || RegisterForm.get('name')?.dirty)"
+                 [class.border-red-500]="RegisterForm.get('name')?.invalid && (RegisterForm.get('name')?.touched || RegisterForm.get('name')?.dirty)"
+                 [class.border-gray-700]="!(RegisterForm.get('name')?.touched || RegisterForm.get('name')?.dirty)"
+                 class="form-input peer w-full rounded-xl bg-gray-900/60 border text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent transition-colors duration-200" />
+          <label for="name" 
+                 [class.text-green-400]="RegisterForm.get('name')?.valid && (RegisterForm.get('name')?.touched || RegisterForm.get('name')?.dirty)"
+                 [class.text-red-400]="RegisterForm.get('name')?.invalid && (RegisterForm.get('name')?.touched || RegisterForm.get('name')?.dirty)"
+                 [class.text-gray-400]="!(RegisterForm.get('name')?.touched || RegisterForm.get('name')?.dirty)"
+                 class="absolute left-4 top-2 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Name</label>
           @if (RegisterForm.get('name')?.errors && (RegisterForm.get('name')?.touched || RegisterForm.get('name')?.dirty)) {
             <div class="alert-error flex p-4 mb-4 text-sm rounded-lg" role="alert">
               <svg class="alert-icon flex-shrink-0 w-4 h-4 mr-2 mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -38,8 +45,15 @@
         <div class="relative">
           <input formControlName="email"
           id="email" name="email" type="email" placeholder=" "
-                 class="form-input peer w-full rounded-xl bg-gray-900/60 border border-gray-700 text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent" />
-          <label for="email" class="absolute left-4 top-2 text-sm text-gray-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Email</label>
+                 [class.border-green-500]="RegisterForm.get('email')?.valid && (RegisterForm.get('email')?.touched || RegisterForm.get('email')?.dirty)"
+                 [class.border-red-500]="RegisterForm.get('email')?.invalid && (RegisterForm.get('email')?.touched || RegisterForm.get('email')?.dirty)"
+                 [class.border-gray-700]="!(RegisterForm.get('email')?.touched || RegisterForm.get('email')?.dirty)"
+                 class="form-input peer w-full rounded-xl bg-gray-900/60 border text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent transition-colors duration-200" />
+          <label for="email" 
+                 [class.text-green-400]="RegisterForm.get('email')?.valid && (RegisterForm.get('email')?.touched || RegisterForm.get('email')?.dirty)"
+                 [class.text-red-400]="RegisterForm.get('email')?.invalid && (RegisterForm.get('email')?.touched || RegisterForm.get('email')?.dirty)"
+                 [class.text-gray-400]="!(RegisterForm.get('email')?.touched || RegisterForm.get('email')?.dirty)"
+                 class="absolute left-4 top-2 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Email</label>
           
           @if (RegisterForm.get('email')?.errors && (RegisterForm.get('email')?.touched || RegisterForm.get('email')?.dirty)) {
             <div class="alert-error flex p-4 mb-4 text-sm rounded-lg" role="alert">
@@ -62,8 +76,15 @@
         <div class="relative">
           <input formControlName="password"
            id="password" name="password" type="password" placeholder=" "
-                 class="form-input peer w-full rounded-xl bg-gray-900/60 border border-gray-700 text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent" />
-          <label for="password" class="absolute left-4 top-2 text-sm text-gray-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Password</label>
+                 [class.border-green-500]="RegisterForm.get('password')?.valid && (RegisterForm.get('password')?.touched || RegisterForm.get('password')?.dirty)"
+                 [class.border-red-500]="RegisterForm.get('password')?.invalid && (RegisterForm.get('password')?.touched || RegisterForm.get('password')?.dirty)"
+                 [class.border-gray-700]="!(RegisterForm.get('password')?.touched || RegisterForm.get('password')?.dirty)"
+                 class="form-input peer w-full rounded-xl bg-gray-900/60 border text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent transition-colors duration-200" />
+          <label for="password" 
+                 [class.text-green-400]="RegisterForm.get('password')?.valid && (RegisterForm.get('password')?.touched || RegisterForm.get('password')?.dirty)"
+                 [class.text-red-400]="RegisterForm.get('password')?.invalid && (RegisterForm.get('password')?.touched || RegisterForm.get('password')?.dirty)"
+                 [class.text-gray-400]="!(RegisterForm.get('password')?.touched || RegisterForm.get('password')?.dirty)"
+                 class="absolute left-4 top-2 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Password</label>
           @if (RegisterForm.get('password')?.errors && (RegisterForm.get('password')?.touched || RegisterForm.get('password')?.dirty)) {
             <div class="alert-error flex p-4 mb-4 text-sm rounded-lg" role="alert">
               <svg class="alert-icon flex-shrink-0 w-4 h-4 mr-2 mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -85,8 +106,15 @@
         <div class="relative">
           <input formControlName="rePassword"
            id="repassword" name="repassword" type="password" placeholder=" "
-                 class="form-input peer w-full rounded-xl bg-gray-900/60 border border-gray-700 text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent" />
-          <label for="repassword" class="absolute left-4 top-2 text-sm text-gray-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Re-Password</label>
+                 [class.border-green-500]="RegisterForm.get('rePassword')?.valid && (RegisterForm.get('rePassword')?.touched || RegisterForm.get('rePassword')?.dirty)"
+                 [class.border-red-500]="RegisterForm.get('rePassword')?.invalid && (RegisterForm.get('rePassword')?.touched || RegisterForm.get('rePassword')?.dirty)"
+                 [class.border-gray-700]="!(RegisterForm.get('rePassword')?.touched || RegisterForm.get('rePassword')?.dirty)"
+                 class="form-input peer w-full rounded-xl bg-gray-900/60 border text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent transition-colors duration-200" />
+          <label for="repassword" 
+                 [class.text-green-400]="RegisterForm.get('rePassword')?.valid && (RegisterForm.get('rePassword')?.touched || RegisterForm.get('rePassword')?.dirty)"
+                 [class.text-red-400]="RegisterForm.get('rePassword')?.invalid && (RegisterForm.get('rePassword')?.touched || RegisterForm.get('rePassword')?.dirty)"
+                 [class.text-gray-400]="!(RegisterForm.get('rePassword')?.touched || RegisterForm.get('rePassword')?.dirty)"
+                 class="absolute left-4 top-2 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Re-Password</label>
             @if ((RegisterForm.get('rePassword')?.touched || RegisterForm.get('rePassword')?.dirty) && RegisterForm.hasError('mismatch')) {
                 <div class="alert-error flex p-4 mb-4 text-sm rounded-lg" role="alert">
                 <svg class="alert-icon flex-shrink-0 w-4 h-4 mr-2 mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -103,12 +131,19 @@
         <div class="relative">
           <input formControlName="phone"
           id="phone" name="phone" type="tel" placeholder=" "
-                 class="form-input peer w-full rounded-xl bg-gray-900/60 border border-gray-700 text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent" />
-          <label for="phone" class="absolute left-4 top-2 text-sm text-gray-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Phone</label>
+                 [class.border-green-500]="RegisterForm.get('phone')?.valid && (RegisterForm.get('phone')?.touched || RegisterForm.get('phone')?.dirty)"
+                 [class.border-red-500]="RegisterForm.get('phone')?.invalid && (RegisterForm.get('phone')?.touched || RegisterForm.get('phone')?.dirty)"
+                 [class.border-gray-700]="!(RegisterForm.get('phone')?.touched || RegisterForm.get('phone')?.dirty)"
+                 class="form-input peer w-full rounded-xl bg-gray-900/60 border text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent transition-colors duration-200" />
+          <label for="phone" 
+                 [class.text-green-400]="RegisterForm.get('phone')?.valid && (RegisterForm.get('phone')?.touched || RegisterForm.get('phone')?.dirty)"
+                 [class.text-red-400]="RegisterForm.get('phone')?.invalid && (RegisterForm.get('phone')?.touched || RegisterForm.get('phone')?.dirty)"
+                 [class.text-gray-400]="!(RegisterForm.get('phone')?.touched || RegisterForm.get('phone')?.dirty)"
+                 class="absolute left-4 top-2 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">Phone</label>
           @if (RegisterForm.get('phone')?.errors && (RegisterForm.get('phone')?.touched || RegisterForm.get('phone')?.dirty)) {
             <div class="alert-error flex p-4 mb-4 text-sm rounded-lg" role="alert">
               <svg class="alert-icon flex-shrink-0 w-4 h-4 mr-2 mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1.1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
               </svg>
               <ul class="mt-1.5 list-disc list-inside">
                 @if (RegisterForm.get('phone')?.hasError('required')) {

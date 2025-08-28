@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink,ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -49,6 +50,9 @@ export class LoginComponent {
         }
       })
     }
+     else{
+      
+      this.LoginForm.markAllAsTouched();
+    }
   }
-
 }

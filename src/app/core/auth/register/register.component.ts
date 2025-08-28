@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink,ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -63,6 +64,11 @@ export class RegisterComponent {
           this.msgerror = error.error.message;
         }
       })
+    }
+    else{
+      this.RegisterForm.get('rePassword')?.patchValue('');
+
+      this.RegisterForm.markAllAsTouched();
     }
   }
 }

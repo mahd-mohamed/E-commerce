@@ -3,6 +3,80 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
+/* Input validation styling */
+.form-input.border-green-500 {
+  border-color: #10b981;
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.2);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+}
+
+.form-input.border-red-500 {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.02));
+}
+
+.form-input.border-gray-700 {
+  border-color: #374151;
+  background: rgba(17, 24, 39, 0.6);
+}
+
+/* Success and error state animations */
+@keyframes successPulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes errorPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.form-input.border-green-500 {
+  animation: successPulse 2s infinite;
+}
+
+.form-input.border-red-500 {
+  animation: errorPulse 2s infinite;
+}
+
+/* Smooth transitions for all form inputs */
+.form-input {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Label styling for validation states */
+label.text-green-400 {
+  color: #4ade80;
+  text-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
+  transform: scale(1.02);
+}
+
+label.text-red-400 {
+  color: #f87171;
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.3);
+  transform: scale(1.02);
+}
+
+label.text-gray-400 {
+  color: #9ca3af;
+  text-shadow: none;
+  transform: scale(1);
+}
+
+/* Enhanced label transitions */
+label {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Focus state for labels */
+.form-input:focus + label {
+  color: #10b981;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
 /* Alert styling that matches the dark theme */
 .alert-error {
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
