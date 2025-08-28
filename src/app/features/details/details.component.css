@@ -186,11 +186,18 @@
 
 /* Rating Section */
 .rating-section {
+  padding: 1rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.rating-section .section-title {
+  margin-bottom: 0.5rem;
+}
+
+.rating-content {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid #333;
 }
 
 .rating-stars {
@@ -218,6 +225,15 @@
 .price-section {
   padding: 1rem 0;
   border-bottom: 1px solid #333;
+}
+
+.price-section .section-title {
+  margin-bottom: 0.5rem;
+}
+
+.price-content {
+  display: flex;
+  align-items: center;
 }
 
 .price-container {

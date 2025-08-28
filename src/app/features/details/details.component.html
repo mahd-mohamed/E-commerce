@@ -64,32 +64,38 @@
 
           <!-- Rating Section -->
           <div class="rating-section">
-            <div class="rating-stars">
-              @for (star of getRatingStars(productdetails.ratingsAverage); track star) {
-                <i [class]="star" 
-                   class="star-icon"></i>
-              }
+            <h3 class="section-title">Rating</h3>
+            <div class="rating-content">
+              <div class="rating-stars">
+                @for (star of getRatingStars(productdetails.ratingsAverage); track star) {
+                  <i [class]="star" 
+                     class="star-icon"></i>
+                }
+              </div>
+              <span class="rating-text">{{ productdetails.ratingsAverage.toFixed(1) || '0.0' }}</span>
+              <span class="rating-count">({{ productdetails.ratingsQuantity || 0 }} reviews)</span>
             </div>
-            <span class="rating-text">{{ productdetails.ratingsAverage.toFixed(1) || '0.0' }}</span>
-            <span class="rating-count">({{ productdetails.ratingsQuantity || 0 }} reviews)</span>
           </div>
 
           <!-- Price Section -->
           <div class="price-section">
-            <div class="price-container">
-              @if (productdetails.priceAfterDiscount) {   
-                <span class="current-price">
-                  ${{ productdetails.priceAfterDiscount }}
+            <h3 class="section-title">Price</h3>
+            <div class="price-content">
+              <div class="price-container">
+                @if (productdetails.priceAfterDiscount) {   
+                  <span class="current-price">
+                    ${{ productdetails.priceAfterDiscount }}
+                  </span>
+                }
+                <span [class]="productdetails.priceAfterDiscount ? 'original-price' : 'current-price'">
+                  ${{ productdetails.price }}
                 </span>
-              }
-              <span [class]="productdetails.priceAfterDiscount ? 'original-price' : 'current-price'">
-                ${{ productdetails.price }}
-              </span>
-              @if (productdetails.priceAfterDiscount) {
-                <span class="savings">
-                  Save ${{ productdetails.price - productdetails.priceAfterDiscount }}
-                </span>
-              }
+                @if (productdetails.priceAfterDiscount) {
+                  <span class="savings">
+                    Save ${{ productdetails.price - productdetails.priceAfterDiscount }}
+                  </span>
+                }
+              </div>
             </div>
           </div>
 
