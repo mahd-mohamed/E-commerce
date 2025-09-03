@@ -1,82 +1,74 @@
-import { CookieService } from 'ngx-cookie-service';
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
-import { log } from 'console';
+import { CookieService } from 'ngx-cookie-service';
+import { InputComponent } from "../../../shared/components/input/input.component";
+
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, InputComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
-    private readonly authService = inject(AuthService)
-    private readonly router = inject(Router)
-    subscribtion:Subscription =new Subscription();
-    private readonly cookieService = inject(CookieService)
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+  private readonly cookieService = inject(CookieService);
 
+  subscription: Subscription = new Subscription();
 
-  msgerror:string=''
+  msgerror: string = '';
   isLoading: boolean = false;
-  
-  // Password visibility state
-  showPassword: boolean = false;
-  
-  LoginForm!: FormGroup 
+
+  LoginForm!: FormGroup;
+
   ngOnInit(): void {
-    this.intitForm()
-  }
-  intitForm():void {
-    this.LoginForm  = new FormGroup({
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
-  });
+    this.initForm();
   }
 
-  
+  initForm(): void {
+    this.LoginForm = this.fb.group({
+      email: [null, [Validators.required, Validators.email]],
+      password: [
+        null,
+        [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]
+      ]
+    });
+  }
 
   SubmitForm() {
     if (this.LoginForm.valid) {
-      this.subscribtion.unsubscribe();
+      this.subscription.unsubscribe();
       this.isLoading = true;
-      this.msgerror = ''; // Clear previous errors
-      
-      this.subscribtion = this.authService.loginForm(this.LoginForm.value).subscribe({
+      this.msgerror = '';
+
+      this.subscription = this.authService.loginForm(this.LoginForm.value).subscribe({
         next: (response) => {
-          console.log(response);
           this.isLoading = false;
 
-          //navigate to login
-          if(response.message=='success'){
-            this.cookieService.set('token',response.token)
-            console.log (this.authService.decodeToken());
+          if (response.message === 'success') {
+            this.cookieService.set('token', response.token);
+            console.log(this.authService.decodeToken());
             this.msgerror = '';
             setTimeout(() => {
-              this.router.navigate(['/home'])
-              
+              this.router.navigate(['/home']);
             }, 1000);
-
           }
         },
         error: (error) => {
-          console.log(error);
           this.isLoading = false;
           this.msgerror = error.error.message;
         }
-      })
-    }
-     else{
-      
+      });
+    } else {
       this.LoginForm.markAllAsTouched();
     }
   }
 
-  // Password visibility toggle method
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
+  
 }

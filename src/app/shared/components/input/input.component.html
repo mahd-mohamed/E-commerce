@@ -1,0 +1,71 @@
+        <div class="relative">
+        <div class="relative mb-2">
+
+          <input [formControl]="control"
+           [id]="idInput" name="name" [type]="typeInput ||( flag ? 'password' : 'text')" placeholder=" "
+                 [class.border-green-500]="control?.valid && (control?.touched || control?.dirty)"
+                 [class.border-red-500]="control?.invalid && (control?.touched || control?.dirty)"
+                 [class.border-gray-700]="!(control?.touched || control?.dirty)"
+                 class="form-input peer w-full rounded-xl bg-gray-900/60 border text-white px-4 pt-5 pb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-transparent transition-colors duration-200" />
+          <label  [for]="idInput" 
+                 [class.text-green-400]="control?.valid && (control?.touched || control?.dirty)"
+                 [class.text-red-400]="control?.invalid && (control?.touched || control?.dirty)"
+                 [class.text-gray-400]="!(control?.touched || control?.dirty)"
+                 class="absolute left-4 top-2 text-sm transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm">{{labelInput}}
+                </label>
+                @if (idInput === "password" || idInput === "rePassword") {
+                <!-- Password Toggle Icon -->
+            <button type="button" 
+                    (click)="flag=!flag"
+                    class="password-toggle-btn">
+              @if (flag) {
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              }
+              @if (!flag) {
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18"></path>
+                </svg>
+              }
+            </button>
+
+                }
+
+
+                 
+          @if (control?.errors && (control?.touched || control?.dirty)) {
+            <div class="alert-error flex p-4 mb-4 text-sm rounded-lg mt-3" role="alert">
+              <svg class="alert-icon flex-shrink-0 w-4 h-4 mr-2 mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <ul class="mt-1.5 list-disc list-inside">
+                @if (control?.hasError('required')) {
+                  <li>Input is required.</li>
+                }
+                @else if (control?.hasError('minlength')) {
+                  <li>Input should be more than or equal 3 chars</li>
+                }
+                @else if (control?.hasError('maxlength')) {
+                  <li>Input should be less than or equal 20 chars</li>
+                }
+                @else if (control?.hasError('email')) {
+                  <li>Email must be a valid email address.</li>
+                }
+                  @else if (control?.hasError('pattern')) {
+                  <li><ng-content ></ng-content>
+                  </li>
+                }
+                   @else if (control?.hasError('mismatch')) {
+                  <li>Passwords do not match.</li>
+                }
+               
+                     
+
+              </ul>
+            </div>
+          }
+        </div>
