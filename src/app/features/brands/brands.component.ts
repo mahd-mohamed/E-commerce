@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { BrandsService, BrandsApiResponse } from './services/brands.service';
-import { Brand } from '../../core/models/brand.interface';
+import { BrandsService } from './services/brands.service';
+import { Brand, BrandsApiResponse } from './models/brand.interface';
 
 @Component({
   selector: 'app-brands',
