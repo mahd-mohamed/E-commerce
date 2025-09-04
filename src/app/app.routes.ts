@@ -13,6 +13,7 @@ import { DetailsComponent } from './features/details/details.component';
 import { CheckoutComponent } from './features/checkout/checkout.component';
 import { NotfoundComponent } from './features/notfound/notfound.component';
 import { authGuard } from './core/guards/auth-guard';
+import { WishlistComponent } from './features/wishlist/wishlist.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -37,6 +38,8 @@ export const routes: Routes = [
       { path: 'categories', component: CategoriesComponent, title: 'Categories' },
       { path: 'details/:id/:slug', component: DetailsComponent, title: 'Details' },
       { path: 'details/:id', component: DetailsComponent, title: 'Details' },
+      { path: 'wishlist', component: WishlistComponent, title: 'wishlist' },
+
 
       { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
     ],

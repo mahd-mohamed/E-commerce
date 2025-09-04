@@ -16,6 +16,8 @@
           <ul class="hidden md:flex items-center space-x-6 text-white font-medium">
             <li><a routerLink="/home" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Home</a></li>
             <li><a routerLink="/cart" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Cart</a></li>
+            <li><a routerLink="/wishlist" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Wish list</a></li>
+
             <li><a routerLink="/product" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Products</a></li>
             <li><a routerLink="/categories" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Categories</a></li>
             <li><a routerLink="/brands" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Brands</a></li>
@@ -27,16 +29,19 @@
       <div class="ms-auto flex items-center space-x-4 md:space-x-8">
         <!-- Social icons - Hidden on mobile -->
         <div class="hidden md:flex items-center space-x-4 border-l border-gray-700 pl-8">
-          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform social-icon">
+           <a routerLink="/cart" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform ">
+          <i class="fas fa-shopping-cart mr-2"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform ">
             <i class="fab fa-facebook-f text-lg"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform social-icon">
+          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform ">
             <i class="fab fa-twitter text-lg"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform social-icon">
+          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform ">
             <i class="fab fa-linkedin-in text-lg"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform social-icon">
+          <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform ">
             <i class="fab fa-instagram text-lg"></i>
           </a>
         </div>
@@ -74,6 +79,7 @@
       <div class="px-4 py-4 space-y-2">
         <a routerLink="/home" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Home</a>
         <a routerLink="/cart" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Cart</a>
+        <a routerLink="/wishlist" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Wish List</a>
         <a routerLink="/product" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Products</a>
         <a routerLink="/categories" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Categories</a>
         <a routerLink="/brands" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Brands</a>
