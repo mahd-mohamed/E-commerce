@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BrandsService } from './services/brands.service';
-import { Brand, BrandsApiResponse } from './models/brand.interface';
+import { Brand, BrandsApiResponse, BrandResponse } from './models/brand.interface';
 
 @Component({
   selector: 'app-brands',
@@ -20,6 +20,12 @@ export class BrandsComponent implements OnInit {
   pageSize: number = 12;
   p: number = 1;
   total: number = 0;
+
+  // Modal state
+  isModalOpen = false;
+  modalLoading = false;
+  modalError = '';
+  selectedBrand: Brand | undefined;
 
   ngOnInit(): void {
     this.loadBrands();
@@ -58,5 +64,31 @@ export class BrandsComponent implements OnInit {
     setTimeout(() => {
       this.loadBrands(page);
     }, 300);
+  }
+
+  viewBrand(brandId: string): void {
+    this.isModalOpen = true;
+    this.modalLoading = true;
+    this.modalError = '';
+    this.selectedBrand = undefined;
+
+    this.brandsService.getBrandById(brandId).subscribe({
+      next: (response: BrandResponse) => {
+        this.selectedBrand = response.data;
+        this.modalLoading = false;
+      },
+      error: (error) => {
+        this.modalError = 'Failed to load brand details. Please try again.';
+        this.modalLoading = false;
+        console.error('Error loading brand by id:', error);
+      }
+    });
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.modalLoading = false;
+    this.modalError = '';
+    this.selectedBrand = undefined;
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
-import { BrandsApiResponse } from '../models/brand.interface';
+import { BrandsApiResponse, Brand, BrandResponse } from '../models/brand.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +16,10 @@ export class BrandsService {
       url += `&keyword=${keyword}`;
     }
     return this.httpClient.get<BrandsApiResponse>(url);
+  }
+
+  getBrandById(brandId: string): Observable<BrandResponse> {
+    const url = `${environment.apiUrl}/brands/${brandId}`;
+    return this.httpClient.get<BrandResponse>(url);
   }
 }

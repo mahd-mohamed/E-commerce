@@ -52,7 +52,7 @@
             <a routerLink="/login" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-medium py-2 px-3" (click)="onLinkClick()">Login</a>
             <a routerLink="/register" routerLinkActive="bg-green-600" class="btn-main navbar-btn-primary" (click)="onLinkClick()">Register</a>
           } @else {
-            <a (click)="logout()" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-medium cursor-pointer">Signout</a>
+            <a (click)="logout()" class="text-gray-300 hover:text-red-600 transition-colors duration-200 font-medium cursor-pointer">Signout</a>
           }
         </div>
 

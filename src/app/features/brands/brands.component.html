@@ -61,13 +61,13 @@
               </h3>
               
               <!-- Brand Slug -->
-              <div class="flex items-center mb-1">
+              <!-- <div class="flex items-center mb-1">
                 <span class="text-xs text-gray-400">{{ brand.slug }}</span>
-              </div>
+              </div> -->
               
                               <!-- Action Buttons - Fixed at bottom -->
                 <div class="flex gap-1.5 mt-auto">
-                  <button class="flex-1 p-3 cursor-pointer bg-green-600 text-white py-1.5 px-2 rounded-md hover:bg-green-700 transition-colors font-medium shadow-lg text-xs">
+                  <button (click)="viewBrand(brand._id)" class="flex-1 p-3 cursor-pointer bg-green-600 text-white py-1.5 px-2 rounded-md hover:bg-green-700 transition-colors font-medium shadow-lg text-xs">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -103,6 +103,58 @@
     }
   </div>
 </section>
+
+<!-- Modal -->
+@if (isModalOpen) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center app-modal">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 app-backdrop" (click)="closeModal()"></div>
+
+    <!-- Dialog -->
+    <div class="relative app-dialog w-full max-w-md mx-4" role="dialog" aria-modal="true" aria-labelledby="brandDialogTitle">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+        <h3 id="brandDialogTitle" class="text-lg font-semibold text-white">Brand Details</h3>
+        <button class="text-gray-400 hover:text-white cursor-pointer" (click)="closeModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="px-4 py-4">
+        @if (modalLoading) {
+          <div class="text-center py-6">
+            <div class="loading-spinner mx-auto"></div>
+            <p class="mt-4 text-gray-400">Loading brand...</p>
+          </div>
+        } @else if (modalError) {
+          <div class="text-center py-6">
+            <p class="text-red-400">{{ modalError }}</p>
+          </div>
+                 } @else if (selectedBrand) {
+           <div class="space-y-4">
+             <div class="w-full h-48 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center brand-image-container">
+               @if (selectedBrand.image) {
+                 <img [src]="selectedBrand.image" [alt]="selectedBrand.name" class="brand-modal-image" />
+               } @else {
+                 <i class="fas fa-building text-gray-400 text-4xl"></i>
+               }
+             </div>
+            <div>
+              <h4 class="text-white text-xl font-semibold">{{ selectedBrand.name }}</h4>
+              <p class="text-gray-400 text-sm">Slug: {{ selectedBrand.slug }}</p>
+              <p class="text-gray-500 text-xs mt-2">Created: {{ selectedBrand.createdAt | date:'medium' }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="px-4 py-3 border-t border-gray-700 flex justify-end">
+        <button class=" cursor-pointer bg-red-700 text-white px-4 py-2 rounded hover:bg-gray-600" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+}
 
 <style>
   /* Force active page to be green */

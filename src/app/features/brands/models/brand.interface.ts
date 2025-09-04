@@ -23,3 +23,8 @@ export interface BrandsApiResponse {
     total: number;
   };
 }
+
+export interface BrandResponse {
+  status: string;
+  data: Brand;
+}
