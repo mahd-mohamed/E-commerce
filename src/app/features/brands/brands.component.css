@@ -35,7 +35,7 @@
 
 
 
-/* Brand Card Styling - Matching Product Card */
+/* Brand Card Styling - Matching Categories Design */
 .brand-card {
   background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
   border-radius: 16px;
@@ -43,24 +43,50 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   position: relative;
-  border: 1px solid rgba(16, 185, 129, 0.1);
+  border: 2px solid transparent;
+  background-clip: padding-box;
   backdrop-filter: blur(10px);
+}
+
+.brand-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.1));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  z-index: -1;
 }
 
 /* Hover effects */
 .brand-card:hover {
-  transform: translateY(-4px);
-  border-color: #10b981;
-  box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
-  cursor: pointer;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-.brand-card .group:hover img {
-  transform: scale(1.1);
+.brand-card:hover::before {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.7), rgba(59, 130, 246, 0.4), rgba(16, 185, 129, 0.3));
+  animation: brandBorderGlow 2s ease-in-out infinite alternate;
 }
 
-/* Image container - Responsive heights */
-.brand-card .image-container {
+@keyframes brandBorderGlow {
+  0% {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.7), rgba(59, 130, 246, 0.4), rgba(16, 185, 129, 0.3));
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(59, 130, 246, 0.6), rgba(16, 185, 129, 0.5));
+  }
+}
+
+/* Brand image container */
+.brand-image-container {
    position: relative;
   height: 200px;
   overflow: hidden;
@@ -68,118 +94,94 @@
 }
 
 /* Brand image */
-.brand-card img {
+.brand-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-/* Category Badge */
-.brand-card .bg-green-900\/20 {
-  background-color: rgba(6, 78, 59, 0.2);
-  backdrop-filter: blur(4px);
-}
-
-.text-green-400 {
-  text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
-}
-
-/* Brand title */
-.brand-card h3 {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 0.25rem;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  flex: 1;
-  min-height: 2.5rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.brand-card h3:hover {
-  color: #4ade80;
-}
-
-/* Action buttons positioning */
-.brand-card .mt-auto {
-  margin-top: auto;
-}
-
-/* Button styles */
-.brand-card .bg-green-600 {
-  background-color: #059669;
-  color: #ffffff;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  transition: all 0.3s ease;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.brand-card .bg-green-600:hover {
-  background-color: #047857;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-  transform: translateY(-2px);
-}
-
-.brand-card .bg-green-600:active {
-  transform: translateY(0);
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
-}
-
-.brand-card .bg-green-600:focus {
-  outline: 2px solid #10b981;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-}
-
-/* SVG Icon styling */
-.brand-card .bg-green-600 svg {
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.brand-card .bg-green-600:hover svg {
+.brand-card:hover .brand-image {
   transform: scale(1.1);
 }
 
-/* Button text styling */
-.brand-card .bg-green-600 {
-  font-size: 0.875rem;
-  line-height: 1;
-  white-space: nowrap;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* Brand info section */
-.brand-card .p-2 {
-  padding: 0.5rem;
+/* Brand overlay */
+.brand-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(16, 185, 129, 0.2));
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Text truncation */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.brand-card:hover .brand-overlay {
+  opacity: 1;
+}
+
+/* View brand button */
+.view-brand-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.view-brand-btn:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus States - Dark Theme */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+/* Grid gap optimization for different layouts */
+@media (min-width: 1280px) {
+  .grid {
+    gap: 0.75rem; /* 12px - tighter spacing for 5-column grid */
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .grid {
+    gap: 1rem; /* 16px - normal spacing for 4-column grid */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid {
+    gap: 1rem; /* 16px - normal spacing for 3-column grid */
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .grid {
+    gap: 1rem; /* 16px - normal spacing for 2-column grid */
+  }
 }
 
 /* Enhanced Shadows */
@@ -218,241 +220,60 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
 }
 
-/* Responsive Design - 6-column grid optimization */
-@media (min-width: 1024px) {
-  .grid {
-    gap: 0.75rem; /* 12px - tighter spacing for 6-column grid */
-  }
-  
-  .brand-card {
-    min-height: 18rem;
-    max-width: 14rem;
-  }
-  
-  .brand-card .image-container {
-    height: 8rem; /* 128px */
-  }
-  
-  .brand-card h3 {
-    font-size: 0.75rem;
-    line-height: 1.125rem;
-    min-height: 2.25rem;
-    margin-bottom: 0.125rem;
-  }
-  
-  .brand-card .p-2 {
-    padding: 0.375rem;
-  }
-  
-  .brand-card .mb-1 {
-    margin-bottom: 0.375rem;
-  }
-}
 
-/* Responsive button styles */
-@media (min-width: 1024px) {
-  .brand-card .bg-green-600 {
-    font-size: 0.75rem;
-    padding: 0.375rem 0.5rem;
+/* Mobile-specific improvements */
+@media (max-width: 639px) {
+  /* Ensure proper centering on mobile */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
-  .brand-card .bg-green-600 svg {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-}
-
-@media (max-width: 1023px) and (min-width: 768px) {
-  .brand-card .bg-green-600 {
-    font-size: 0.875rem;
-    padding: 0.5rem 0.75rem;
-  }
-  
-  .brand-card .bg-green-600 svg {
-    width: 1rem;
-    height: 1rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .brand-card .bg-green-600 {
-    font-size: 0.875rem;
-    padding: 0.5rem 0.75rem;
-  }
-  
-  .brand-card .bg-green-600 svg {
-    width: 1rem;
-    height: 1rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .brand-card .bg-green-600 {
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-  }
-  
-  .brand-card .bg-green-600 svg {
-    width: 1.125rem;
-    height: 1.125rem;
-  }
-}
-
-/* Medium screens */
-@media (max-width: 1023px) and (min-width: 768px) {
-  .brand-card {
-    min-height: 22rem;
-    max-width: 18rem;
-  }
-  
-  .brand-card .image-container {
-    height: 12rem; /* 192px */
-  }
-  
-  .brand-card h3 {
-    min-height: 2.75rem;
-  }
-}
-
-/* Small screens */
-@media (max-width: 767px) {
-  .brand-card {
-    min-height: 20rem;
-    max-width: 16rem;
-  }
-  
-  .brand-card .image-container {
-    height: 10rem; /* 160px */
-  }
-  
-  .brand-card h3 {
-    min-height: 2.5rem;
-  }
-}
-
-/* Mobile screens - Perfect centering */
-@media (max-width: 640px) {
-  .brand-card {
-    min-height: 22rem;
+  .mobile-center {
     width: 100%;
-    max-width: 20rem;
-    margin: 0 auto;
-    align-self: center;
-    justify-self: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    border-radius: 0.75rem;
+    max-width: 20rem; /* Match card max-width */
   }
   
-  .brand-card .image-container {
-    height: 16rem; /* 256px */
-    min-height: 14rem;
-    aspect-ratio: 3 / 2;
-    border-radius: 0.5rem 0.5rem 0 0;
+  .brand-image-container {
+    height: 180px;
   }
   
-  .brand-card h3 {
-    min-height: 2.5rem;
-    font-size: 1rem;
-    line-height: 1.375rem;
-  }
   
-  .brand-card .p-2 {
-    padding: 0.75rem;
-  }
-  
-  .brand-card button {
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-  }
-  
-  .brand-card .mb-1 {
-    margin-bottom: 0.5rem;
-  }
-  
-  .brand-card img {
-    object-fit: cover !important;
-    object-position: center !important;
-  }
-  
-  /* Perfect centering for mobile */
-  .brand-card {
-    align-self: center !important;
-    justify-self: center !important;
-    margin: 0 auto !important;
-    width: 100% !important;
-    max-width: 20rem !important;
+  .view-brand-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
   }
 }
 
 /* Image optimization */
-.brand-card img {
+.brand-image {
   object-fit: cover !important;
   object-position: center !important;
   width: 100% !important;
   height: 100% !important;
 }
 
-.brand-card .image-container {
+.brand-image-container {
   aspect-ratio: 4 / 3;
   min-height: 8rem;
 }
 
-/* Compact spacing */
-.brand-card .mb-1 {
-  margin-bottom: 0.25rem !important;
-}
-
-.brand-card .p-2 {
-  padding: 0.5rem !important;
-}
-
-/* Focus states for accessibility */
-.brand-card button:focus {
-  outline: 2px solid #10b981;
-  outline-offset: 2px;
-}
-
-.brand-card h3:focus {
-  outline: 2px solid #10b981;
-  outline-offset: 2px;
-}
-
-/* Ensure consistent card heights */
+/* Animation for card hover effects */
 .brand-card {
-  height: auto;
-  min-height: 20rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Force buttons to stay at bottom */
-.brand-card .flex-1 {
-  flex: 1 1 auto;
+.brand-card:hover {
+  transform: translateY(-8px) scale(1.02);
 }
 
-.brand-card .mt-auto {
-  margin-top: auto !important;
-}
-
-/* Smooth transitions */
-* {
-  transition: all 0.2s ease;
-}
-
-/* Glowing effects */
-.brand-card:hover .border-green-500 {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-}
-
-/* Dark theme text enhancements */
-.text-white {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.text-gray-300 {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+/* Responsive text sizing */
+@media (max-width: 480px) {
+  .view-brand-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* Custom Pagination Styling */

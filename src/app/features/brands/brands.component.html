@@ -30,7 +30,7 @@
 
     <!-- Brands Grid -->
     @if (!loading && !error) {
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 ">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 ">
         @for (brand of brands | paginate: { id: 'brands',
                                           itemsPerPage: pageSize,
                                           currentPage: p,
@@ -59,7 +59,6 @@
                 </button>
               </div>
             </div>
-            
           </div>
         }
       </div>
