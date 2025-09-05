@@ -14,6 +14,7 @@ import { CheckoutComponent } from './features/checkout/checkout.component';
 import { NotfoundComponent } from './features/notfound/notfound.component';
 import { authGuard } from './core/guards/auth-guard';
 import { WishlistComponent } from './features/wishlist/wishlist.component';
+import { CategoryDetailsComponent } from './features/category-details/category-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -36,6 +37,8 @@ export const routes: Routes = [
       { path: 'product', component: ProductsComponent, title: 'Product' },
       { path: 'brands', component: BrandsComponent, title: 'Brands' },
       { path: 'categories', component: CategoriesComponent, title: 'Categories' },
+      { path: 'categories/:id', component: CategoryDetailsComponent, title: 'Category Details' },
+      { path: 'category-details/:id', component: CategoryDetailsComponent, title: 'Category Details' },
       { path: 'details/:id/:slug', component: DetailsComponent, title: 'Details' },
       { path: 'details/:id', component: DetailsComponent, title: 'Details' },
       { path: 'wishlist', component: WishlistComponent, title: 'wishlist' },

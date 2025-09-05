@@ -1,1 +1,145 @@
-<p>categories works!</p>
+<!-- Categories Section -->
+<section class="py-16 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-4">Categories</h2>
+      <p class="max-w-2xl mx-auto">Browse our wide range of product categories</p>
+    </div>
+    
+    <!-- Loading State -->
+    @if (loading) {
+      <div class="text-center py-12">
+        <div class="loading-spinner mx-auto"></div>
+        <p class="mt-4 text-gray-400">Loading categories...</p>
+      </div>
+    }
+
+    <!-- Error State -->
+    @if (error && !loading) {
+      <div class="text-center py-20">
+        <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-200 mb-2">Oops! Something went wrong</h3>
+        <p class="text-gray-400 mb-6">{{ error }}</p>
+        <button 
+          (click)="loadCategories()" 
+          class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition-colors">
+          <i class="fas fa-redo mr-2"></i>Try Again
+        </button>
+      </div>
+    }
+
+    <!-- Categories Grid -->
+    @if (!loading && !error && categories.length > 0) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mobile-center">
+        @for (category of categories; track category._id) {
+          <div class="category-card group">
+            <div class="category-image-container">
+              <img 
+                [src]="category.image" 
+                [alt]="category.name"
+                class="category-image"
+                (error)="onImageError($event)"
+              />
+              <div class="category-overlay">
+                <button 
+                  class="view-category-btn"
+                  [routerLink]="['/category-details', category._id]"
+                >
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>View details
+                </button>
+              </div>
+            </div>
+            <div class="category-info">
+              <h3 class="category-name">{{ category.name }}</h3>
+              <p class="category-slug">{{ category.slug }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- SubCategories Section -->
+    <div class="subcategories-section">
+      <div class="text-center mb-12">
+        <h3 class="text-3xl font-bold mb-4">Sub Categories</h3>
+        <p class="max-w-2xl mx-auto">Browse our product subcategories for better organization</p>
+      </div>
+      
+      <!-- SubCategories Loading -->
+      @if (subCategoriesLoading) {
+        <div class="text-center py-12">
+          <div class="loading-spinner mx-auto"></div>
+          <p class="mt-4 text-gray-400">Loading subcategories...</p>
+        </div>
+      }
+
+      <!-- SubCategories Grid -->
+      @if (!subCategoriesLoading) {
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mobile-center">
+          @for (subCategory of subCategories | paginate: { id: 'subcategories',
+                                                        itemsPerPage: subCategoriesPageSize,
+                                                        currentPage: subCategoriesCurrentPage,
+                                                        totalItems: subCategoriesTotal }; track subCategory._id) {
+            <div class="subcategory-item">
+            
+              <div class="subcategory-content">
+                <h4 class="subcategory-name">{{ subCategory.name }}</h4>
+                <p class="subcategory-slug">{{ subCategory.slug }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Empty State for SubCategories -->
+      @if (!subCategoriesLoading && subCategories.length === 0) {
+        <div class="text-center py-20">
+          <i class="fas fa-tags text-6xl text-gray-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-300 mb-2">No SubCategories Found</h3>
+          <p class="text-gray-500">There are no subcategories available at the moment.</p>
+        </div>
+      }
+
+      <!-- Pagination Controls -->
+      @if (!subCategoriesLoading && subCategoriesTotal > subCategoriesPageSize) {
+        <div class="flex justify-center mt-12 mb-8">
+          <pagination-controls 
+            class="custom-pagination"
+            id="subcategories"
+            (pageChange)="subCategoriesPageChanged($event)"
+            [autoHide]="false"
+            [maxSize]="5">
+          </pagination-controls>
+        </div>
+      }
+    </div>
+
+    <!-- Empty State -->
+    @if (!loading && !error && categories.length === 0) {
+      <div class="text-center py-20">
+        <i class="fas fa-box-open text-6xl text-gray-600 mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">No Categories Found</h3>
+        <p class="text-gray-500">There are no categories available at the moment.</p>
+      </div>
+    }
+  </div>
+</section>
+
+<style>
+  /* Force active page to be green - matching Products exactly */
+  .custom-pagination ::ng-deep .ngx-pagination .current,
+  .custom-pagination ::ng-deep .ngx-pagination li.current a,
+  .custom-pagination ::ng-deep .ngx-pagination li.current span {
+    color: #e6a40b !important;
+    font-weight: 700 !important;
+  }
+  
+  .custom-pagination ::ng-deep .ngx-pagination .current:hover,
+  .custom-pagination ::ng-deep .ngx-pagination li.current a:hover,
+  .custom-pagination ::ng-deep .ngx-pagination li.current span:hover {
+    color: #e6a40b !important;
+  }
+</style>

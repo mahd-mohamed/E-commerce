@@ -1,0 +1,76 @@
+<!-- Category Details Section -->
+<section class="py-16 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-4">Category Details</h2>
+      <p class="max-w-2xl mx-auto">Detailed information about the selected category</p>
+    </div>
+    
+    <!-- Loading State -->
+    @if (!categoryDetails || !categoryDetails.name) {
+      <div class="text-center py-12">
+        <div class="loading-spinner mx-auto"></div>
+        <p class="mt-4 text-gray-400">Loading category details...</p>
+      </div>
+    }
+
+    <!-- Error State -->
+    @if (!categoryDetails && id) {
+      <div class="text-center py-20">
+        <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-200 mb-2">Oops! Something went wrong</h3>
+        <p class="text-gray-400 mb-6">Unable to load category details for ID: {{ id }}</p>
+        <button 
+          routerLink="/categories"
+          class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition-colors">
+          <i class="fas fa-arrow-left mr-2"></i>Back to Categories
+        </button>
+      </div>
+    }
+
+    <!-- Category Details Card -->
+    @if (categoryDetails && categoryDetails.name) {
+      <div class="max-w-4xl mx-auto">
+        <div class="category-details-card">
+          <!-- Category Image -->
+          <div class="category-details-image-container">
+            <img 
+              [src]="categoryDetails.image" 
+              [alt]="categoryDetails.name"
+              class="category-details-image"
+              (error)="onImageError($event)"
+            />
+            <div class="category-details-overlay">
+              <div class="category-badge">
+                <i class="fas fa-tag mr-2"></i>
+                Category
+              </div>
+            </div>
+          </div>
+          
+          <!-- Category Information -->
+          <div class="category-details-info">
+            <div class="category-details-header">
+              <h1 class="category-details-name">{{ categoryDetails.name }}</h1>
+              <p class="category-details-slug">{{ categoryDetails.slug }}</p>
+            </div>
+            
+            
+            
+            <!-- Action Buttons -->
+            <div class="category-details-actions">
+              <button 
+                routerLink="/categories"
+                class="action-btn secondary">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Back to Categories
+              </button>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

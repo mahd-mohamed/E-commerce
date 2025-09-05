@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DetailsService } from './details.service';
-import { log } from 'console';
 import { Product } from '../../core/models/product.interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';

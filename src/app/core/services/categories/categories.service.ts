@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
@@ -7,14 +8,16 @@ import { environment } from '../../../../environments/environment.development';
 })
 export class CategoriesService {
   private readonly httpClient = inject(HttpClient);
-  
 
-
-
-
-  getAllCategories() {
-
+  getAllCategories(): Observable<any> {
     return this.httpClient.get(`${environment.apiUrl}/categories`);
   }
+
+  getCategoryById(id: string): Observable<any> {
+    return this.httpClient.get(`${environment.apiUrl}/categories/${id}`);
+  }
+
   
+
+ 
 }

@@ -131,7 +131,7 @@ export class PopularCategoriesComponent implements OnInit, AfterViewInit {
 
   onImageError(event: any): void {
     // Set a default image when the category image fails to load
-    event.target.src = 'assets/images/placeholder-category.svg';
+    event.target.src = '/images/placeholder-category.svg';
   }
 
   trackByCategory(index: number, category: Category): string {
