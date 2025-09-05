@@ -16,21 +16,18 @@
 
     <!-- Error State -->
     @if (error && !loading) {
-      <div class="text-center py-20">
-        <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
-        <h3 class="text-xl font-semibold text-gray-200 mb-2">Oops! Something went wrong</h3>
-        <p class="text-gray-400 mb-6">{{ error }}</p>
-        <button 
-          (click)="loadCategories()" 
-          class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition-colors">
-          <i class="fas fa-redo mr-2"></i>Try Again
-        </button>
-      </div>
-    }
+        <div class="text-center py-20">
+          <i class="fas fa-tags text-6xl text-gray-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-300 mb-2">No Categories Found</h3>
+          <p class="text-gray-500">There are no categories available at the moment.</p>
+        </div>
+      }
+      
+    
 
     <!-- Categories Grid -->
     @if (!loading && !error && categories.length > 0) {
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mobile-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 ">
         @for (category of categories; track category._id) {
           <div class="category-card group">
             <div class="category-image-container">
@@ -78,7 +75,8 @@
 
       <!-- SubCategories Grid -->
       @if (!subCategoriesLoading) {
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mobile-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 ">
+
           @for (subCategory of subCategories | paginate: { id: 'subcategories',
                                                         itemsPerPage: subCategoriesPageSize,
                                                         currentPage: subCategoriesCurrentPage,
@@ -111,7 +109,7 @@
             id="subcategories"
             (pageChange)="subCategoriesPageChanged($event)"
             [autoHide]="false"
-            [maxSize]="5">
+            [maxSize]="6">
           </pagination-controls>
         </div>
       }

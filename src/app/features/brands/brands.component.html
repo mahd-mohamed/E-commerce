@@ -30,51 +30,36 @@
 
     <!-- Brands Grid -->
     @if (!loading && !error) {
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mobile-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 ">
         @for (brand of brands | paginate: { id: 'brands',
                                           itemsPerPage: pageSize,
                                           currentPage: p,
                                           totalItems: total }; track brand._id) {
-          <div class="brand-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-700 flex flex-col">
-            
-            <!-- Brand Image -->
-            <div class="relative overflow-hidden group image-container">
+          <div class="brand-card group">
+            <div class="brand-image-container">
               @if (brand.image) {
                 <img [src]="brand.image" 
                      [alt]="brand.name"
-                     class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300">
+                     class="brand-image"
+                     (error)="onImageError($event)">
               } @else {
                 <div class="w-full h-full bg-gray-700 flex items-center justify-center">
                   <i class="fas fa-building text-gray-400 text-4xl"></i>
                 </div>
               }
-            </div>
-
-            <!-- Brand Info -->
-            <div class="p-2 flex-1 flex flex-col">
-              <div class="mb-1">
-                <span class="text-xs text-green-400 font-medium bg-green-900/20 px-1.5 py-0.5 rounded-full">Brand</span>
+              <div class="brand-overlay">
+                <button 
+                  class="view-brand-btn"
+                  (click)="viewBrand(brand._id)"
+                >
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>View details
+                </button>
               </div>
-              
-              <h3 class="font-semibold text-white mb-1 line-clamp-2 hover:text-green-400 cursor-pointer transition-colors text-sm flex-1">
-                {{ brand.name }}
-              </h3>
-              
-              <!-- Brand Slug -->
-              <!-- <div class="flex items-center mb-1">
-                <span class="text-xs text-gray-400">{{ brand.slug }}</span>
-              </div> -->
-              
-                              <!-- Action Buttons - Fixed at bottom -->
-                <div class="flex gap-1.5 mt-auto">
-                  <button (click)="viewBrand(brand._id)" class="flex-1 p-3 cursor-pointer bg-green-600 text-white py-1.5 px-2 rounded-md hover:bg-green-700 transition-colors font-medium shadow-lg text-xs">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                    </svg>View brand
-                  </button>
-                </div>
             </div>
+            
           </div>
         }
       </div>

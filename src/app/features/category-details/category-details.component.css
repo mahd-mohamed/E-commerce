@@ -52,18 +52,50 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(16, 185, 129, 0.1);
+  border: 3px solid transparent;
+  background-clip: padding-box;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   max-width: 600px;
   width: 100%;
   margin: 0 auto;
+  position: relative;
+}
+
+.category-details-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(245, 158, 11, 0.3), rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.1));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  z-index: -1;
 }
 
 .category-details-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.category-details-card:hover::before {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.7), rgba(245, 158, 11, 0.5), rgba(16, 185, 129, 0.4), rgba(59, 130, 246, 0.2));
+  animation: detailsBorderGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes detailsBorderGlow {
+  0% {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.7), rgba(245, 158, 11, 0.5), rgba(16, 185, 129, 0.4), rgba(59, 130, 246, 0.2));
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(245, 158, 11, 0.7), rgba(16, 185, 129, 0.6), rgba(59, 130, 246, 0.4));
+  }
 }
 
 /* Category Details Image Container */
@@ -179,6 +211,36 @@
   word-break: break-all;
 }
 
+/* Back to Categories Button - Top Navigation */
+.back-to-categories-btn {
+  background: linear-gradient(135deg, #374151, #4b5563);
+  color: #e5e7eb;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.back-to-categories-btn:hover {
+  background: linear-gradient(135deg, #4b5563, #6b7280);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+.back-to-categories-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
 /* Action Buttons */
 .category-details-actions {
   display: flex;
@@ -261,6 +323,11 @@
     width: 100%;
     max-width: 300px;
   }
+  
+  .back-to-categories-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -287,6 +354,11 @@
   .action-btn {
     padding: 0.75rem 1.5rem;
     font-size: 0.9rem;
+  }
+  
+  .back-to-categories-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -339,4 +411,289 @@ button:focus {
 
 .bg-green-600:hover {
   background-color: #047857;
+}
+
+/* SubCategories Section */
+.subcategories-section {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.subcategories-section h3 {
+  background: linear-gradient(135deg, #ffffff, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+/* SubCategory Item Styling */
+.subcategory-item {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  position: relative;
+}
+
+.subcategory-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(16, 185, 129, 0.2), rgba(245, 158, 11, 0.1));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  z-index: -1;
+}
+
+.subcategory-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.subcategory-item:hover::before {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.7), rgba(16, 185, 129, 0.4), rgba(245, 158, 11, 0.3));
+  animation: subcategoryBorderGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes subcategoryBorderGlow {
+  0% {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.7), rgba(16, 185, 129, 0.4), rgba(245, 158, 11, 0.3));
+  }
+  100% {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(16, 185, 129, 0.6), rgba(245, 158, 11, 0.5));
+  }
+}
+
+.subcategory-content {
+  text-align: center;
+}
+
+.subcategory-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+}
+
+.subcategory-slug {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  margin: 0;
+  text-transform: lowercase;
+  font-style: italic;
+}
+
+/* Grid gap optimization for different layouts */
+@media (min-width: 1280px) {
+  .subcategories-section .grid {
+    gap: 0.75rem; /* 12px - tighter spacing for 6-column grid */
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .subcategories-section .grid {
+    gap: 1rem; /* 16px - normal spacing for 4-column grid */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .subcategories-section .grid {
+    gap: 1rem; /* 16px - normal spacing for 3-column grid */
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .subcategories-section .grid {
+    gap: 1rem; /* 16px - normal spacing for 2-column grid */
+  }
+}
+
+/* Mobile-specific improvements for subcategories */
+@media (max-width: 639px) {
+  .subcategory-item {
+    padding: 0.75rem;
+  }
+  
+  .subcategory-name {
+    font-size: 0.8rem;
+  }
+  
+  .subcategory-slug {
+    font-size: 0.7rem;
+  }
+}
+
+/* Custom Pagination Styling for SubCategories */
+.custom-pagination ::ng-deep .ngx-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+  scroll-behavior: smooth;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination li {
+  margin: 0;
+  padding: 0;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination a,
+.custom-pagination ::ng-deep .ngx-pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none !important;
+  background: transparent !important;
+  color: #d1d5db !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination a:hover,
+.custom-pagination ::ng-deep .ngx-pagination span:hover {
+  background: transparent !important;
+  color: #10b981 !important;
+  border: none !important;
+  transform: translateY(-2px);
+  box-shadow: none !important;
+}
+
+/* Active page styling - more specific selectors */
+.custom-pagination ::ng-deep .ngx-pagination .current,
+.custom-pagination ::ng-deep .ngx-pagination .current:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current a,
+.custom-pagination ::ng-deep .ngx-pagination li.current span,
+.custom-pagination ::ng-deep .ngx-pagination li.current a:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current span:hover {
+  background: transparent !important;
+  color: #10b981 !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: scale(1.05);
+  font-weight: 700 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .current:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current a:hover,
+.custom-pagination ::ng-deep .ngx-pagination li.current span:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: transparent !important;
+  color: #9ca3af !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .disabled:hover {
+  background: transparent !important;
+  transform: none;
+  box-shadow: none !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .pagination-previous,
+.custom-pagination ::ng-deep .ngx-pagination .pagination-next {
+  font-weight: 600;
+  min-width: 3rem;
+  background: transparent !important;
+  border: none !important;
+  color: #10b981 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .pagination-previous:hover,
+.custom-pagination ::ng-deep .ngx-pagination .pagination-next:hover {
+  background: transparent !important;
+  border: none !important;
+  color: #10b981 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination .pagination-previous.disabled,
+.custom-pagination ::ng-deep .ngx-pagination .pagination-next.disabled {
+  background: transparent !important;
+  border: none !important;
+  color: #6b7280 !important;
+}
+
+/* Force override for all pagination elements */
+.custom-pagination ::ng-deep .ngx-pagination * {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Additional specific override for current page */
+.custom-pagination ::ng-deep .ngx-pagination li.current *,
+.custom-pagination ::ng-deep .ngx-pagination .current * {
+  color: #10b981 !important;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination a:focus,
+.custom-pagination ::ng-deep .ngx-pagination span:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent unwanted scrolling */
+.custom-pagination ::ng-deep .ngx-pagination a:active,
+.custom-pagination ::ng-deep .ngx-pagination span:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+/* Responsive pagination */
+@media (max-width: 640px) {
+  .custom-pagination ::ng-deep .ngx-pagination {
+    gap: 0.25rem;
+  }
+  
+  .custom-pagination ::ng-deep .ngx-pagination a,
+  .custom-pagination ::ng-deep .ngx-pagination span {
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .custom-pagination ::ng-deep .ngx-pagination .pagination-previous,
+  .custom-pagination ::ng-deep .ngx-pagination .pagination-next {
+    min-width: 2.5rem;
+  }
+}
+
+/* Animation for page changes */
+.custom-pagination ::ng-deep .ngx-pagination li {
+  transition: all 0.3s ease;
+}
+
+.custom-pagination ::ng-deep .ngx-pagination li:hover {
+  transform: translateY(-1px);
 }

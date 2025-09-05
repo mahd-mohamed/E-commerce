@@ -7,6 +7,16 @@
       <p class="max-w-2xl mx-auto">Detailed information about the selected category</p>
     </div>
     
+    <!-- Back to Categories Button - Top Navigation -->
+    <div class="flex justify-start mb-8">
+      <button 
+        routerLink="/categories"
+        class="back-to-categories-btn">
+        <i class="fas fa-arrow-left mr-2"></i>
+        Back to Categories
+      </button>
+    </div>
+    
     <!-- Loading State -->
     @if (!categoryDetails || !categoryDetails.name) {
       <div class="text-center py-12">
@@ -58,19 +68,95 @@
             
             
             
-            <!-- Action Buttons -->
-            <div class="category-details-actions">
-              <button 
-                routerLink="/categories"
-                class="action-btn secondary">
-                <i class="fas fa-arrow-left mr-2"></i>
-                Back to Categories
-              </button>
-            
-            </div>
+           
           </div>
         </div>
       </div>
     }
+
+    <!-- SubCategories Section -->
+    <div class="subcategories-section">
+      <div class="text-center mb-12">
+        <h3 class="text-3xl font-bold mb-4">All SubCategories On This Category</h3>
+        <p class="max-w-2xl mx-auto">Browse subcategories under {{ categoryDetails.name }}</p>
+      </div>
+      
+      <!-- SubCategories Loading -->
+      @if (subCategoriesLoading) {
+        <div class="text-center py-12">
+          <div class="loading-spinner mx-auto"></div>
+          <p class="mt-4 text-gray-400">Loading subcategories...</p>
+        </div>
+      }
+
+      <!-- SubCategories Error -->
+      @if (subCategoriesError && !subCategoriesLoading) {
+        <div class="text-center py-20">
+          <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-200 mb-2">Oops! Something went wrong</h3>
+          <p class="text-gray-400 mb-6">{{ subCategoriesError }}</p>
+          <button 
+            (click)="loadSubCategories(id!)" 
+            class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition-colors">
+            <i class="fas fa-redo mr-2"></i>Try Again
+          </button>
+        </div>
+      }
+
+      <!-- SubCategories Grid -->
+      @if (!subCategoriesLoading && !subCategoriesError && subCategories.length > 0) {
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 ">
+          @for (subCategory of subCategories | paginate: { id: 'subcategories',
+                                                        itemsPerPage: subCategoriesPageSize,
+                                                        currentPage: subCategoriesCurrentPage,
+                                                        totalItems: subCategoriesTotal }; track subCategory._id) {
+            <div class="subcategory-item">
+              <div class="subcategory-content">
+                <h4 class="subcategory-name">{{ subCategory.name }}</h4>
+                <p class="subcategory-slug">{{ subCategory.slug }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Empty State for SubCategories -->
+      @if (!subCategoriesLoading && !subCategoriesError && subCategories.length === 0) {
+        <div class="text-center py-20">
+          <i class="fas fa-tags text-6xl text-gray-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-300 mb-2">No SubCategories Found</h3>
+          <p class="text-gray-500">There are no subcategories available for this category at the moment.</p>
+        </div>
+      }
+
+      <!-- Pagination Controls -->
+      @if (!subCategoriesLoading && !subCategoriesError && subCategoriesTotal > subCategoriesPageSize) {
+        <div class="flex justify-center mt-12 mb-8">
+          <pagination-controls 
+            class="custom-pagination"
+            id="subcategories"
+            (pageChange)="subCategoriesPageChanged($event)"
+            [autoHide]="false"
+            [maxSize]="6">
+          </pagination-controls>
+        </div>
+      }
+    </div>
   </div>
 </section>
+
+<style>
+  /* Force active page to be green - matching Categories exactly */
+  .custom-pagination ::ng-deep .ngx-pagination .current,
+  .custom-pagination ::ng-deep .ngx-pagination li.current a,
+  .custom-pagination ::ng-deep .ngx-pagination li.current span {
+    color: #10b981 !important;
+    font-weight: 700 !important;
+  }
+  
+  .custom-pagination ::ng-deep .ngx-pagination .current:hover,
+  .custom-pagination ::ng-deep .ngx-pagination li.current a:hover,
+  .custom-pagination ::ng-deep .ngx-pagination li.current span:hover {
+    color: #10b981 !important;
+  }
+</style>

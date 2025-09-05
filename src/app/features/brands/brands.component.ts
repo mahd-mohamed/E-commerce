@@ -91,4 +91,12 @@ export class BrandsComponent implements OnInit {
     this.modalError = '';
     this.selectedBrand = undefined;
   }
+
+  onImageError(event: any): void {
+    event.target.style.display = 'none';
+    const parent = event.target.parentElement;
+    if (parent) {
+      parent.innerHTML = '<div class="w-full h-full bg-gray-700 flex items-center justify-center"><i class="fas fa-building text-gray-400 text-4xl"></i></div>';
+    }
+  }
 }

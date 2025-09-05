@@ -16,6 +16,6 @@ export class SubCategoryService {
   }
 
   getSubCategoriesByCategory(categoryId: string): Observable<SubCategoryResponse> {
-    return this.httpClient.get<SubCategoryResponse>(`${environment.apiUrl}/subcategories?category=${categoryId}`);
+    return this.httpClient.get<SubCategoryResponse>(`${environment.apiUrl}/categories/${categoryId}/subcategories`);
   }
 }

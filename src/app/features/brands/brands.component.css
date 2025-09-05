@@ -30,73 +30,21 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile Center Class - Perfect centering for mobile */
-.mobile-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
 
-/* Responsive Grid Layout */
-@media (min-width: 1024px) {
-  /* Large screens - 6-column grid */
-  .mobile-center {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
 
-@media (max-width: 1023px) and (min-width: 768px) {
-  /* Medium screens - 3-column grid */
-  .mobile-center {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
-@media (max-width: 767px) {
-  /* Small screens - 2-column grid */
-  .mobile-center {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-}
 
-@media (max-width: 640px) {
-  /* Mobile screens - 1-column grid with perfect centering */
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  .mobile-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 20rem;
-    margin: 0 auto;
-  }
-}
 
 /* Brand Card Styling - Matching Product Card */
 .brand-card {
-  position: relative;
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  border-radius: 16px;
   overflow: hidden;
-  background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
-  border: 1px solid #374151;
-  border-radius: 0.5rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 20rem;
-  width: 100%;
-  max-width: 16rem;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 /* Hover effects */
@@ -113,11 +61,10 @@
 
 /* Image container - Responsive heights */
 .brand-card .image-container {
-  height: 10rem; /* 160px - Base height */
-  width: 100%;
-  position: relative;
-  flex-shrink: 0;
+   position: relative;
+  height: 200px;
   overflow: hidden;
+  background: #2a2a2a;
 }
 
 /* Brand image */
@@ -125,9 +72,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  display: block;
+  transition: transform 0.3s ease;
 }
 
 /* Category Badge */
