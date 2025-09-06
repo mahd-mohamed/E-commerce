@@ -2,16 +2,19 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CartService } from './services/cart.service';
 import { Cart } from './models/cart.interface';
+import { ToastService } from '../../core/services/toast.service';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, ToastComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService)
+  private readonly toastService = inject(ToastService)
   cartDetails:Cart={} as Cart
   loading: boolean = true;
   error: string = '';
@@ -41,10 +44,12 @@ export class CartComponent implements OnInit {
     this.cartService.updateCartProductQuantity(productId, count).subscribe({
       next: (response) => {
         console.log('Quantity updated successfully', response);
+        this.toastService.success('Quantity updated successfully!');
         // Refresh cart data to ensure real-time updates
         this.getLoggedUserData();
       },
       error: (err) => {
+        this.toastService.error('Failed to update quantity. Please try again.');
         console.log('Error updating quantity:', err);
       }
     });
@@ -54,10 +59,12 @@ export class CartComponent implements OnInit {
     this.cartService.removeCartItem(productId).subscribe({
       next: (response) => {
         console.log('Product removed successfully', response);
+        this.toastService.success('Product removed from cart!');
         // Refresh cart data to ensure real-time updates
         this.getLoggedUserData();
       },
       error: (err) => {
+        this.toastService.error('Failed to remove product. Please try again.');
         console.log('Error removing product:', err);
       }
     });
@@ -79,10 +86,14 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart().subscribe({
       next: (response) => {
         console.log('Cart cleared successfully', response);
+        this.toastService.success('Cart cleared successfully!');
         // Refresh cart data to ensure real-time updates
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         this.getLoggedUserData();
       },
       error: (err) => {
+        this.toastService.error('Failed to clear cart. Please try again.');
         console.log('Error clearing cart:', err);
       }
     });
