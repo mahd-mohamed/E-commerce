@@ -3,6 +3,7 @@ import { Product } from '../../../core/models/product.interface';
 import { RouterLink } from "@angular/router";
 import { CartService } from '../../../features/cart/services/cart.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { WishlistService } from '../../../features/wishlist/services/wishlist.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { ToastService } from '../../../core/services/toast.service';
 })
 export class CardComponent {
   private readonly cartService = inject(CartService);
+  private readonly wishlistService = inject(WishlistService);
   private readonly toastService = inject(ToastService);
   @Input() product: Product = {} as Product;
 
@@ -36,6 +38,20 @@ export class CardComponent {
       }
     });
   }
+addToWishlist(id: string, event: Event): void {
+  event.stopPropagation();
+  this.wishlistService.addProductToWishlist(id).subscribe({
+    next: (response) => {
+      console.log('Product added to wishlist:', response);
+      this.toastService.success('Product added to wishlist successfully!');
+    },
+    error: (error) => {
+      console.error('Error adding product to wishlist:', error);
+      this.toastService.error('Failed to add product to wishlist. Please try again.');
+    }
+  });
+}
+
 
 
 }

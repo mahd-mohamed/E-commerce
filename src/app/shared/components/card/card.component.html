@@ -50,12 +50,24 @@
       <span class="text-xs text-gray-400 bg-gray-700 px-1.5 py-0.5 rounded-full">{{ product.quantity }} left</span>
     </div>
     
-    <!-- Action Buttons - Fixed at bottom -->
-    <div class="flex gap-1.5 mt-auto">
-      <button (click)="addToCart(product._id,$event)" class="flex-1 p-3 cursor-pointer bg-green-600 text-white py-1.5 px-2 rounded-md hover:bg-green-700 transition-colors font-medium shadow-lg text-xs">
-          <i class="fas fa-shopping-cart mr-2"></i>
-        Add to Cart
-      </button>
+   <!-- Action Buttons - Fixed at bottom -->
+<div class="flex gap-2 mt-auto p-1">
+  <!-- Add to Cart Button -->
+  <button 
+    (click)="addToCart(product._id,$event)" 
+    class="flex-1 p-3 cursor-pointer bg-green-600 text-white rounded-lg hover:bg-green-700 hover:scale-105 transition-all duration-300 font-medium shadow-lg text-xs border border-green-500 hover:border-green-400 group">
+    <i class="fas fa-shopping-cart mr-2 group-hover:animate-bounce"></i>
+    Add to Cart
+  </button>
 
-  </div>
+  <!-- Wishlist Button -->
+  <button 
+    (click)="addToWishlist(product._id,$event)" 
+    class="wishlist-btn p-3 cursor-pointer bg-gray-700 hover:bg-red-500 text-gray-300 hover:text-white rounded-lg transition-all duration-300 font-medium shadow-lg border border-gray-600 hover:border-red-400 group relative overflow-hidden">
+    <i class="fas fa-heart group-hover:animate-pulse"></i>
+    <span class="wishlist-tooltip">Add to Wishlist</span>
+  </button>
+
+</div>
+
 </div>

@@ -45,8 +45,13 @@ export class CartComponent implements OnInit {
       next: (response) => {
         console.log('Quantity updated successfully', response);
         this.toastService.success('Quantity updated successfully!');
-        // Refresh cart data to ensure real-time updates
-        this.getLoggedUserData();
+        // Update local data instead of reloading
+        const item = this.cartDetails.products.find(p => p.product._id === productId);
+        if (item) {
+          item.count = count;
+          // Recalculate total
+          this.cartDetails.totalCartPrice = this.cartDetails.products.reduce((total, p) => total + (p.price * p.count), 0);
+        }
       },
       error: (err) => {
         this.toastService.error('Failed to update quantity. Please try again.');
@@ -60,8 +65,9 @@ export class CartComponent implements OnInit {
       next: (response) => {
         console.log('Product removed successfully', response);
         this.toastService.success('Product removed from cart!');
-        // Refresh cart data to ensure real-time updates
-        this.getLoggedUserData();
+        // Remove item from local array and recalculate total
+        this.cartDetails.products = this.cartDetails.products.filter(item => item.product._id !== productId);
+        this.cartDetails.totalCartPrice = this.cartDetails.products.reduce((total, p) => total + (p.price * p.count), 0);
       },
       error: (err) => {
         this.toastService.error('Failed to remove product. Please try again.');
@@ -87,10 +93,10 @@ export class CartComponent implements OnInit {
       next: (response) => {
         console.log('Cart cleared successfully', response);
         this.toastService.success('Cart cleared successfully!');
-        // Refresh cart data to ensure real-time updates
+        // Clear local data instead of reloading
+        this.cartDetails.products = [];
+        this.cartDetails.totalCartPrice = 0;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        this.getLoggedUserData();
       },
       error: (err) => {
         this.toastService.error('Failed to clear cart. Please try again.');

@@ -63,3 +63,50 @@
 .empty-cart-state p {
   margin-bottom: 2rem;
 }
+
+/* Summary section sticky positioning fix */
+.sticky {
+  position: sticky;
+  top: 6rem; /* Increased to account for navbar height */
+  height: fit-content;
+  z-index: 50; /* Higher z-index to stay above navbar */
+  align-self: start;
+}
+
+.sticky > div {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+}
+
+/* Ensure parent container has proper height for sticky to work */
+.lg\\:col-span-4 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Additional navbar spacing */
+@media (min-width: 1024px) {
+  .sticky {
+    top: 5rem; /* Adjust based on your navbar height */
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .sticky {
+    position: static;
+    top: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .sticky {
+    position: static;
+    top: auto;
+  }
+}

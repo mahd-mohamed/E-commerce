@@ -1,0 +1,280 @@
+/* Loading state */
+.loading-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  border: 3px solid #374151;
+  border-top: 3px solid #ec4899;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  animation: spin 1s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.3));
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: #9ca3af;
+  font-size: 1rem;
+  text-align: center;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error state */
+.error-state {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  border: 1px solid #ef4444;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.error-state i {
+  color: #ef4444;
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
+}
+
+/* Empty wishlist state */
+.empty-wishlist-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #9ca3af;
+}
+
+.empty-wishlist-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #d1d5db;
+}
+
+.empty-wishlist-state p {
+  margin-bottom: 2rem;
+}
+
+/* Wishlist item styling */
+
+
+/* Button styling */
+.btn-main {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+/* Add to cart button */
+.add-to-cart-btn {
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+.add-to-cart-btn:disabled {
+  background: linear-gradient(135deg, #6b7280, #4b5563) !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove button */
+.remove-btn {
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.remove-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Clear wishlist button */
+.clear-wishlist-btn {
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.clear-wishlist-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+/* Quick action buttons */
+.quick-action-btn {
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px);
+}
+
+
+
+/* Summary section sticky positioning fix */
+.sticky {
+  position: sticky;
+  top: 6rem; /* Increased to account for navbar height */
+  height: fit-content;
+  z-index: 50; /* Higher z-index to stay above navbar */
+  align-self: start;
+}
+
+.sticky > div {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+}
+
+/* Ensure parent container has proper height for sticky to work */
+.lg\\:col-span-4 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure summary stays above navbar */
+.sticky {
+  position: sticky;
+  top: 6rem;
+  height: fit-content;
+  z-index: 50;
+  align-self: start;
+}
+
+/* Additional navbar spacing */
+@media (min-width: 1024px) {
+  .sticky {
+    top: 5rem; /* Adjust based on your navbar height */
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .sticky {
+    position: static;
+    top: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .sticky {
+    position: static;
+    top: auto;
+  }
+}
+
+/* Animation for wishlist items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* Heart animation for wishlist badge */
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+/* Gradient text effects */
+.bg-gradient-to-r {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Custom scrollbar for wishlist items */
+
+
+
+
+
+
+/* Focus states for accessibility */
+.btn-main:focus,
+.add-to-cart-btn:focus,
+.remove-btn:focus,
+.clear-wishlist-btn:focus,
+.quick-action-btn:focus {
+  outline: 2px solid #ec4899;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+ 
+  
+  .btn-main,
+  .add-to-cart-btn,
+  .clear-wishlist-btn,
+  .quick-action-btn {
+    border: 2px solid #ffffff;
+  }
+}
