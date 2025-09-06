@@ -4,7 +4,11 @@
     <div class="text-center mb-12">
       <h2 class="text-3xl font-bold mb-4"> Products List  </h2>
       <p class="max-w-2xl mx-auto">Discover our wide range of amazing products, carefully curated for your shopping needs.</p>
+
     </div>
+    <input [(ngModel)]="searchTerm" type="text" placeholder="Search products..." class="w-full mb-6 p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500" >
+
+
     
     <!-- Loading State -->
     @if (loading) {
@@ -16,16 +20,13 @@
 
     <!-- Error State -->
     @if (error && !loading) {
-      <div class="text-center py-20">
-        <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
-        <h3 class="text-xl font-semibold text-gray-200 mb-2">Oops! Something went wrong</h3>
-        <p class="text-gray-400 mb-6">{{ error }}</p>
-        <button 
-          (click)="retryLoadProducts()" 
-          class="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-green-700 transition-colors">
-          <i class="fas fa-redo mr-2"></i>Try Again
-        </button>
-      </div>
+       <div class="text-center py-20">
+          <i class="fas fa-tags text-6xl text-gray-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-300 mb-2">No products found</h3>
+          <p class="text-gray-500">Try refreshing the page or check your connection.</p>
+
+
+        </div>
     }
 
     <!-- Products Grid -->
@@ -34,7 +35,7 @@
         @for (product of productlist | paginate: { id: 'foo',
                                                       itemsPerPage: pageSize,
                                                       currentPage: p,
-                                                      totalItems: total }; track product._id) {
+                                                      totalItems: total } |search : searchTerm; track product._id) {
         <app-card [product]="product"></app-card>
         }
       </div>

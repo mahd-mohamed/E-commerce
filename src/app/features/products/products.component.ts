@@ -3,11 +3,13 @@ import { Product } from '../../core/models/product.interface';
 import { ProductsService, ApiResponse } from '../../core/services/products/products.service';
 import { CardComponent } from "../../shared/components/card/card.component";
 import { NgxPaginationModule } from 'ngx-pagination'; 
+import { SearchPipe } from '../../shared/pipes/search-pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CardComponent,NgxPaginationModule],
+  imports: [CardComponent,NgxPaginationModule,SearchPipe,FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
@@ -19,6 +21,7 @@ export class ProductsComponent implements OnInit {
   total!:number; 
   loading: boolean = true;
   error: string | null = null;
+  searchTerm:string = ''
 
   ngOnInit(): void {
     this.getProducts();
@@ -56,9 +59,7 @@ export class ProductsComponent implements OnInit {
     console.log('Adding to cart:', product.title);
   }
 
-  retryLoadProducts(): void {
-    this.getProducts();
-  }
+
   pageChanged(page:number): void {
     // Scroll to top smoothly before changing page
     window.scrollTo({ top: 0, behavior: 'smooth' });

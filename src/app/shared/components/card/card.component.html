@@ -22,7 +22,7 @@
       <span class="text-xs text-green-400 font-medium bg-green-900/20 px-1.5 py-0.5 rounded-full">{{ product.category.name }}</span>
     </div>
     
-    <h3 class="font-semibold text-white mb-1 line-clamp-2 hover:text-green-400 cursor-pointer transition-colors text-sm flex-1" (click)="viewProduct(product)">
+    <h3 class="font-semibold text-white mb-1 line-clamp-2 hover:text-green-400 cursor-pointer transition-colors text-sm flex-1">
       {{ product.title }}
     </h3>
     
@@ -44,7 +44,7 @@
           </span>
         }
         <span [class]="product.priceAfterDiscount ? 'text-xs text-gray-500 line-through' : 'text-sm font-bold text-white'">
-          ${{ product.price }}
+          {{ product.price }} EGP
         </span>
       </div>
       <span class="text-xs text-gray-400 bg-gray-700 px-1.5 py-0.5 rounded-full">{{ product.quantity }} left</span>
@@ -52,7 +52,7 @@
     
     <!-- Action Buttons - Fixed at bottom -->
     <div class="flex gap-1.5 mt-auto">
-      <button (click)="addToCart(product, $event)" class="flex-1 p-3 cursor-pointer bg-green-600 text-white py-1.5 px-2 rounded-md hover:bg-green-700 transition-colors font-medium shadow-lg text-xs">
+      <button (click)="addToCart(product._id,$event)" class="flex-1 p-3 cursor-pointer bg-green-600 text-white py-1.5 px-2 rounded-md hover:bg-green-700 transition-colors font-medium shadow-lg text-xs">
           <i class="fas fa-shopping-cart mr-2"></i>
         Add to Cart
       </button>

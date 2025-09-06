@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Product } from '../../../core/models/product.interface';
 import { RouterLink } from "@angular/router";
+import { CartService } from '../../../features/cart/services/cart.service';
+import { ToastService } from '../../../core/services/toast.service';
 
 
 @Component({
@@ -10,6 +12,8 @@ import { RouterLink } from "@angular/router";
   styleUrl: './card.component.css'
 })
 export class CardComponent {
+  private readonly cartService = inject(CartService);
+  private readonly toastService = inject(ToastService);
   @Input() product: Product = {} as Product;
 
   getDiscountPercentage(originalPrice: number, discountedPrice: number): number {
@@ -18,20 +22,20 @@ export class CardComponent {
     return Math.round(discount);
   }
 
-  addToCart(product: Product, event: Event): void {
+  addToCart(id: string, event: Event): void {
     // Prevent event propagation to avoid triggering the card's routerLink
     event.stopPropagation();
-    // TODO: Implement add to cart functionality
-    console.log('Adding to cart:', product.title);
+    this.cartService.addProductToCart(id).subscribe({
+      next: (response) => {
+        console.log('Product added to cart:', response);
+        this.toastService.success('Product added to cart successfully!');
+      },
+      error: (error) => {
+        console.error('Error adding product to cart:', error);
+        this.toastService.error('Failed to add product to cart. Please try again.');
+      }
+    });
   }
 
-  viewProduct(product: Product): void {
-    // TODO: Implement navigation to product details
-    console.log('Viewing product:', product.title);
-  }
 
-  toggleWishlist(product: Product): void {
-    // TODO: Implement wishlist functionality
-    console.log('Toggling wishlist for:', product.title);
-  }
 }

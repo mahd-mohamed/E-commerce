@@ -250,9 +250,10 @@
 }
 
 .original-price {
+  text-decoration: line-through;
+  color: #888;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff;
 }
 
 .original-price.strikethrough {

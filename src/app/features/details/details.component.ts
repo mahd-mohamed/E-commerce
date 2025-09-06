@@ -4,6 +4,8 @@ import { DetailsService } from './details.service';
 import { Product } from '../../core/models/product.interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../cart/services/cart.service';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-details',
@@ -15,6 +17,9 @@ import { CommonModule } from '@angular/common';
 export class DetailsComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly detailsService= inject(DetailsService);
+  private readonly cartService = inject(CartService);
+  private readonly toastService = inject(ToastService);
+  
   productdetails:Product = {} as Product;
 
   id: string | null = null;
@@ -80,9 +85,17 @@ export class DetailsComponent implements OnInit {
   }
 
   // Action methods
-  addToCart(): void {
-    // TODO: Implement add to cart functionality
-    console.log('Adding to cart:', this.productdetails.title);
+  addToCart(id: string): void {
+    this.cartService.addProductToCart(id).subscribe({
+      next: (response) => {
+        console.log('Product added to cart:', response);
+        this.toastService.success('Product added to cart successfully!');
+      },
+      error: (error) => {
+        console.error('Error adding product to cart:', error);
+        this.toastService.error('Failed to add product to cart. Please try again.');
+      }
+    });
   }
 }
 

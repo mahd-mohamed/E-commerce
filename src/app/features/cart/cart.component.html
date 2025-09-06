@@ -1,1 +1,157 @@
-<p>cart works!</p>
+<section class="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+  <div class="container mx-auto px-4 max-w-7xl">
+    
+    <!-- Loading State -->
+    @if (loading) {
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading cart...</p>
+      </div>
+    }
+
+    <!-- Error State -->
+    @if (error && !loading) {
+      <div class="error-state">
+        <i class="fas fa-exclamation-triangle text-6xl mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">Failed to Load Cart</h3>
+        <p class="text-gray-500 mb-4">{{ error }}</p>
+        <button class="btn-main cursor-pointer" (click)="getLoggedUserData()">
+          <i class="fas fa-refresh mr-2"></i>
+          Try Again
+        </button>
+      </div>
+    }
+
+    <!-- Cart Content -->
+    @if (!loading && !error) {
+      <div class="grid lg:grid-cols-12 gap-8">
+        
+        <!-- Cart Items Section -->
+        <div class="lg:col-span-8">
+          <!-- Cart Header -->
+          <div class="flex items-center space-x-4 mb-8">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+               Cart
+            </h1>
+            <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full text-sm font-semibold shadow-lg">
+               {{cartDetails.products?.length || 0}} Items
+            </span>
+          </div>
+          <!-- Cart Items -->
+          @if (cartDetails.products && cartDetails.products.length > 0) {
+            @for (item of cartDetails.products; track item.product._id) {
+             <!-- Cart Item -->
+        <div class="cart-item p-6 rounded-xl transition-all duration-300 backdrop-blur-sm">
+          <div class="grid grid-cols-12 gap-4 items-center">
+            
+            <!-- Product Image -->
+            <div class="col-span-2">
+              <div class="relative overflow-hidden rounded-lg bg-gray-600">
+                <img [src]="item.product.imageCover" class="w-full" [alt]="item.product.title">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-span-7">
+              <h3 class="text-xl font-semibold text-green-400 mb-2  transition-colors">
+                {{item.product.title}}
+              </h3>
+              
+              <!-- Quantity Controls -->
+              <div class="flex items-center space-x-4">
+                <div class="quantity-controls bg-gray-600 rounded-lg flex items-center space-x-4 px-3 py-2 border border-gray-500">
+                  <button class="quantity-btn text-gray-300 hover:text-white hover:bg-gray-500 rounded-md p-1 transition-all duration-200 cursor-pointer" (click)="decreaseQuantity(item)">
+                    <i class="fas fa-minus text-sm"></i>
+                  </button>
+                  <span class="text-white font-semibold px-2 min-w-[2rem] text-center">{{item.count}}</span>
+                  <button class="quantity-btn text-gray-300 hover:text-white hover:bg-gray-500 rounded-md p-1 transition-all duration-200 cursor-pointer" (click)="increaseQuantity(item)">
+                    <i class="fas fa-plus text-sm"></i>
+                  </button>
+                </div>
+                
+                <!-- Remove Button -->
+                <button class="remove-btn text-red-400 hover:text-red-300 hover:bg-red-900/20 p-2 rounded-lg transition-all duration-200 cursor-pointer" (click)="removeProduct(item.product._id)">
+                  <i class="fas fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Price -->
+            <div class="col-span-3 text-right">
+              <div class="text-2xl font-bold text-white mb-1">
+                {{item.price * item.count}} EGP
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Separator Line -->
+        <div class="mt-6 pt-6 border-t border-gray-600">
+        </div>
+
+     
+
+            }
+
+            <!-- Clear Cart Button -->
+            <div class="mt-6 text-center">
+              <button class="clear-cart-btn bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-red-600 hover:to-red-700 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer" (click)="clearCart()">
+                <i class="fas fa-trash-alt mr-2"></i>
+                Clear Cart
+              </button>
+            </div>
+          } @else {
+            <!-- Empty Cart State -->
+            <div class="empty-cart-state">
+              <i class="fas fa-shopping-cart text-6xl text-gray-600 mb-4"></i>
+              <h3 class="text-xl font-semibold text-gray-300 mb-2">Your Cart is Empty</h3>
+              <p class="text-gray-500 mb-4">Add some products to get started!</p>
+              <button class="btn-main cursor-pointer" routerLink="/product">
+                <i class="fas fa-shopping-bag mr-2"></i>
+                Start Shopping
+              </button>
+            </div>
+          }
+        </div>
+
+      <!-- Order Summary Section -->
+      <div class="lg:col-span-4">
+        <div class="sticky top-8">
+          <div class="p-6 rounded-xl backdrop-blur-sm">
+            
+            <!-- Summary Header -->
+            <h2 class="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
+              Order Summary
+            </h2>
+
+            <!-- Price Breakdown -->
+            <div class="space-y-4 mb-6">
+           
+              <div class="flex justify-between items-center py-3">
+                <span class="text-xl font-bold text-white">Total</span>
+                <span class="text-2xl font-bold text-green-400">{{cartDetails.totalCartPrice}}</span>
+              </div>
+            </div>
+
+            <!-- Checkout Button -->
+            <button class="w-full checkout-btn bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:from-green-600 hover:to-green-700 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+              <i class="fas fa-credit-card mr-2"></i>
+              Proceed to Checkout
+            </button>
+
+            <!-- Security Badge -->
+            <div class="mt-4 text-center">
+              <div class="flex items-center justify-center space-x-2 text-gray-400 text-sm">
+                <i class="fas fa-shield-alt text-green-400"></i>
+                <span>Secure checkout guaranteed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
