@@ -73,11 +73,63 @@
   box-shadow: 0 4px 12px rgba(10, 173, 10, 0.4);
 }
 
-/* Responsive spacing adjustments */
-@media (max-width: 768px) {
+/* Tablet breakpoint (640px - 1024px) */
+@media (min-width: 640px) and (max-width: 1024px) {
   .navbar-container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  /* Tablet navigation improvements */
+  .navbar-container .nav-link {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  /* Tablet icon improvements */
+  .navbar-container .fas,
+  .navbar-container .fa-solid {
+    font-size: 1.25rem;
+  }
+  
+  /* Tablet button improvements */
+  .navbar-btn-primary {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  /* Tablet spacing */
+  .navbar-container .flex {
+    gap: 0.75rem;
+  }
+  
+  /* Tablet logo size */
+  .logo-container img {
+    height: 2.25rem;
+  }
+  
+  /* Tablet-specific hover effects */
+  .navbar-container a:hover {
+    transform: translateY(-1px);
+  }
+  
+  /* Tablet menu item spacing */
+  .navbar-container .space-x-3 > * + * {
+    margin-left: 0.75rem;
+  }
+  
+  /* Tablet auth button styling */
+  .navbar-container .btn-main {
+    font-weight: 500;
+    letter-spacing: 0.025em;
+  }
+}
+
+/* Mobile breakpoint (max-width: 640px) */
+@media (max-width: 640px) {
+  .navbar-container {
+    padding-left: 0;
+    padding-right: 0;
   }
   
   /* Mobile menu improvements */
@@ -94,15 +146,28 @@
   
   /* Mobile button improvements */
   .navbar-button {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+  }
+  
+  /* Mobile icon improvements */
+  .navbar-container .fas,
+  .navbar-container .fa-solid {
+    font-size: 1.125rem;
+  }
+  
+  /* Ensure proper spacing on mobile */
+  .navbar-container .flex {
+    gap: 0.5rem;
   }
 }
 
-@media (max-width: 640px) {
+/* Small mobile improvements (max-width: 480px) */
+@media (max-width: 480px) {
   .navbar-container {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    padding-left: 0;
+    padding-right: 0;
   }
   
   /* Small mobile improvements */
@@ -118,7 +183,25 @@
   
   /* Logo size adjustment for small screens */
   .logo-container img {
-    height: 2.5rem;
+    height: 2rem;
+  }
+  
+  /* Even tighter spacing for small screens */
+  .navbar-container .flex {
+    gap: 0.25rem;
+  }
+  
+  /* Smaller icons for very small screens */
+  .navbar-container .fas,
+  .navbar-container .fa-solid {
+    font-size: 1rem;
+  }
+  
+  /* Smaller mobile button */
+  .navbar-button {
+    width: 2.25rem;
+    height: 2.25rem;
+    min-width: 2.25rem;
   }
 }
 

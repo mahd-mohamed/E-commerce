@@ -1,37 +1,40 @@
 <nav class="sticky top-0 z-50 bg-gradient-to-r from-gray-900 to-gray-800 shadow-lg border-b border-gray-700 navbar-container transition-all duration-300 "  
      [class.shadow-2xl]="isScrolled"
      [class.bg-opacity-95]="isScrolled">
-  <div class="w-11/12 mx-auto">
-    <div class="flex flex-wrap items-center justify-between py-4">
+  <div class="w-full px-4 sm:px-6 lg:w-11/12 lg:mx-auto">
+    <div class="flex items-center justify-between py-3 sm:py-4 lg:py-4">
       
-      <!-- Logo and Navigation Menu (Left side) -->
-      <div class="flex items-center space-x-8">
-        <!-- Logo -->
-        <a routerLink="/" routerLinkActive="text-green-400" class="flex items-center space-x-3 group logo-container" (click)="onLinkClick()">
-          <img src="/images/freshcart-logo.svg" class="h-10 group-hover:scale-105 transition-transform duration-200" alt="Freshcart Logo" />
+      <!-- Logo (Left side) -->
+      <div class="flex-shrink-0">
+        <a routerLink="/" routerLinkActive="text-green-400" class="flex items-center group logo-container" (click)="onLinkClick()">
+          <img src="/images/freshcart-logo.svg" class="h-8 sm:h-9 lg:h-10 group-hover:scale-105 transition-transform duration-200" alt="Freshcart Logo" />
         </a>
-
-        <!-- Navigation Menu - Hidden on mobile -->
-        @if (isLogin === true) {
-          <ul class="hidden md:flex items-center space-x-6 text-white font-medium">
-            <li><a routerLink="/home" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Home</a></li>
-            <li><a routerLink="/cart" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Cart</a></li>
-            <li><a routerLink="/wishlist" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Wish list</a></li>
-
-            <li><a routerLink="/product" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Products</a></li>
-            <li><a routerLink="/categories" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Categories</a></li>
-            <li><a routerLink="/brands" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-3 hover:text-green-400 transition-colors duration-200" (click)="onLinkClick()">Brands</a></li>
-          </ul>
-        }
       </div>
 
-      <!-- Right side content with ms-auto -->
-      <div class="ms-auto flex items-center space-x-4 md:space-x-8">
-        <!-- Social icons - Hidden on mobile -->
-        <div class="hidden md:flex items-center space-x-4 border-l border-gray-700 pl-8">
-           <a routerLink="/cart" routerLinkActive="text-green-400" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform ">
-          <i class="fas fa-shopping-cart mr-2"></i>
+      <!-- Navigation Menu - Hidden on mobile, visible on tablet and desktop -->
+      @if (isLogin === true) {
+        <div class="hidden me-auto sm:flex lg:flex items-center space-x-3 lg:space-x-1 text-white font-medium">
+          <a routerLink="/home" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-2 lg:px-3 hover:text-green-400 transition-colors duration-200 text-sm lg:text-base" (click)="onLinkClick()">Home</a>
+          <a routerLink="/product" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-2 lg:px-3 hover:text-green-400 transition-colors duration-200 text-sm lg:text-base" (click)="onLinkClick()">Products</a>
+          <a routerLink="/categories" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-2 lg:px-3 hover:text-green-400 transition-colors duration-200 text-sm lg:text-base" (click)="onLinkClick()">Categories</a>
+          <a routerLink="/brands" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="py-2 px-2 lg:px-3 hover:text-green-400 transition-colors duration-200 text-sm lg:text-base" (click)="onLinkClick()">Brands</a>
+        </div>
+      }
+
+      <!-- Right side content -->
+      <div class="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+        <!-- Cart and Wishlist icons -->
+        <div class="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+          <a routerLink="/cart" routerLinkActive="text-green-400" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform p-1.5 sm:p-2">
+            <i class="fas fa-shopping-cart text-lg sm:text-xl lg:text-xl"></i>
           </a>
+          <a routerLink="/wishlist" routerLinkActive="text-red-700" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform p-1.5 sm:p-2">
+            <i class="fa-solid fa-heart text-lg sm:text-xl lg:text-xl"></i>
+          </a>
+        </div>
+
+        <!-- Social icons - Hidden on mobile and tablet, visible on desktop -->
+        <div class="hidden lg:flex items-center space-x-4 border-l border-gray-700 pl-4">
           <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform ">
             <i class="fab fa-facebook-f text-lg"></i>
           </a>
@@ -46,19 +49,19 @@
           </a>
         </div>
 
-        <!-- Auth links - Hidden on mobile -->
-        <div class="hidden md:flex items-center space-x-4 border-l border-gray-700 pl-8">
+        <!-- Auth links - Hidden on mobile, visible on tablet and desktop -->
+        <div class="hidden sm:flex lg:flex items-center space-x-2 lg:space-x-4 border-l border-gray-700 pl-2 lg:pl-4">
           @if (isLogin === false) {
-            <a routerLink="/login" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-medium py-2 px-3" (click)="onLinkClick()">Login</a>
-            <a routerLink="/register" routerLinkActive="bg-green-600" class="btn-main navbar-btn-primary" (click)="onLinkClick()">Register</a>
+            <a routerLink="/login" routerLinkActive="text-green-400 bg-gray-800 rounded-lg" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-medium py-2 px-2 lg:px-3 text-sm lg:text-base" (click)="onLinkClick()">Login</a>
+            <a routerLink="/register" routerLinkActive="bg-green-600" class="btn-main navbar-btn-primary text-sm lg:text-base px-3 lg:px-4 py-2" (click)="onLinkClick()">Register</a>
           } @else {
-            <a (click)="logout()" class="text-gray-300 hover:text-red-600 transition-colors duration-200 font-medium cursor-pointer">Signout</a>
+            <a (click)="logout()" class="text-gray-300 hover:text-red-600 transition-colors duration-200 font-medium cursor-pointer text-sm lg:text-base">Signout</a>
           }
         </div>
 
-        <!-- Mobile menu button -->
+        <!-- Mobile menu button - Hidden on tablet and desktop -->
         <button (click)="toggleMobileMenu()" type="button" 
-          class="inline-flex items-center p-2.5 w-11 h-11 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 navbar-button">
+          class="inline-flex items-center justify-center w-10 h-10 text-white rounded-lg sm:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 navbar-button">
           <span class="sr-only">Open main menu</span>
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -70,7 +73,7 @@
   </div>
 
   <!-- Mobile menu -->
-  <div class="md:hidden border-t border-gray-700 mobile-menu-backdrop transition-all duration-300 ease-in-out" 
+  <div class="sm:hidden border-t border-gray-700 mobile-menu-backdrop transition-all duration-300 ease-in-out" 
        [class.hidden]="!isMobileMenuOpen"
        [class.opacity-0]="!isMobileMenuOpen"
        [class.transform]="!isMobileMenuOpen"
@@ -78,8 +81,6 @@
     @if (isLogin === true) {
       <div class="px-4 py-4 space-y-2">
         <a routerLink="/home" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Home</a>
-        <a routerLink="/cart" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Cart</a>
-        <a routerLink="/wishlist" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Wish List</a>
         <a routerLink="/product" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Products</a>
         <a routerLink="/categories" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Categories</a>
         <a routerLink="/brands" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Brands</a>
