@@ -1,1 +1,158 @@
-<p>allorders works!</p>
+<section class="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <!-- Header -->
+    <div class="flex items-center space-x-4 mb-8">
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+        My Orders
+      </h1>
+      <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full text-sm font-semibold shadow-lg">
+        {{orders.length || 0}} Orders
+      </span>
+    </div>
+
+    <!-- Loading State -->
+    @if (isLoading) {
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading your orders...</p>
+      </div>
+    }
+
+    <!-- Error State -->
+    @if (errorMessage && !isLoading) {
+      <div class="error-state">
+        <i class="fas fa-exclamation-triangle text-6xl mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">Failed to Load Orders</h3>
+        <p class="text-gray-500 mb-4">{{ errorMessage }}</p>
+        <button 
+          (click)="loadOrders()"
+          class="btn-main cursor-pointer">
+          <i class="fas fa-refresh mr-2"></i>
+          Try Again
+        </button>
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading && !errorMessage && orders.length === 0) {
+      <div class="empty-orders-state">
+        <i class="fas fa-shopping-bag text-6xl text-gray-600 mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-300 mb-2">No orders yet</h3>
+        <p class="text-gray-500 mb-4">Start shopping to see your orders here</p>
+        <a routerLink="/home" class="btn-main cursor-pointer">
+          <i class="fas fa-shopping-bag mr-2"></i>
+          Start Shopping
+        </a>
+      </div>
+    }
+
+    <!-- Orders List -->
+    @if (!isLoading && !errorMessage && orders.length > 0) {
+      <div class="space-y-6">
+        @for (order of orders; track order._id) {
+          <div class="order-card p-6 rounded-xl transition-all duration-300 backdrop-blur-sm">
+            <!-- Order Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+              <div class="flex items-center space-x-4">
+                <div>
+                  <h3 class="text-xl font-semibold text-green-400 mb-2">Order #{{ order.id }}</h3>
+                  <p class="text-sm text-gray-400">{{ formatDate(order.createdAt) }}</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-4 mt-4 sm:mt-0">
+                <!-- Order Status -->
+                @if (getOrderStatus(order); as status) {
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ status.bgColor }} {{ status.color }}">
+                    <i class="fas fa-circle text-xs mr-2"></i>
+                    {{ status.status }}
+                  </span>
+                }
+                <!-- Total Price -->
+                <div class="text-right">
+                  <p class="text-2xl font-bold text-white">{{ formatPrice(order.totalOrderPrice) }}</p>
+                  <p class="text-sm text-gray-400">{{ order.cartItems.length }} item(s)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="flex items-center justify-between mb-6 p-4 rounded-lg">
+              <div class="flex items-center space-x-3">
+                <i class="{{ getPaymentMethodIcon(order.paymentMethodType) }} text-green-400"></i>
+                <span class="text-white font-medium">{{ getPaymentMethodText(order.paymentMethodType) }}</span>
+              </div>
+              @if (order.paidAt) {
+                <span class="text-sm text-gray-400">
+                  Paid on {{ formatDate(order.paidAt) }}
+                </span>
+              }
+            </div>
+
+            <!-- Shipping Address -->
+            @if (order.shippingAddress) {
+              <div class="mb-6 p-4 rounded-lg">
+                <h4 class="font-medium text-white mb-2 flex items-center">
+                  <i class="fas fa-map-marker-alt text-green-400 mr-2"></i>
+                  Shipping Address
+                </h4>
+                <p class="text-gray-300">{{ order.shippingAddress.details }}</p>
+                <p class="text-gray-300">{{ order.shippingAddress.city }}</p>
+                @if (order.shippingAddress.phone) {
+                  <p class="text-gray-300">{{ order.shippingAddress.phone }}</p>
+                }
+              </div>
+            }
+
+            <!-- Order Items -->
+            <div class="space-y-4">
+              <h4 class="font-medium text-white mb-3">Order Items</h4>
+              @for (item of order.cartItems; track item._id) {
+                <div class="flex items-center space-x-4 p-4 rounded-lg">
+                  <div class="relative overflow-hidden rounded-lg">
+                    <img 
+                      [src]="item.product.imageCover" 
+                      [alt]="item.product.title"
+                      class="w-16 h-16 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h5 class="text-sm font-medium text-white truncate">{{ item.product.title }}</h5>
+                    <p class="text-sm text-gray-400">{{ item.product.brand.name }}</p>
+                    <p class="text-sm text-gray-400">Qty: {{ item.count }}</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-medium text-white">{{ formatPrice(item.price) }}</p>
+                    <p class="text-xs text-gray-400">each</p>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Order Summary -->
+            <div class="mt-6 pt-6 border-t border-gray-600">
+              <div class="flex justify-between items-center text-sm mb-2">
+                <span class="text-gray-400">Subtotal:</span>
+                <span class="text-white">{{ formatPrice(order.totalOrderPrice - order.taxPrice - order.shippingPrice) }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm mb-2">
+                <span class="text-gray-400">Tax:</span>
+                <span class="text-white">{{ formatPrice(order.taxPrice) }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm mb-2">
+                <span class="text-gray-400">Shipping:</span>
+                <span class="text-white">{{ formatPrice(order.shippingPrice) }}</span>
+              </div>
+              <div class="flex justify-between items-center text-lg font-semibold pt-2 border-t border-gray-600">
+                <span class="text-white">Total:</span>
+                <span class="text-green-400">{{ formatPrice(order.totalOrderPrice) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Separator Line -->
+          <div class="mt-6 pt-6 border-t border-gray-600"></div>
+        }
+      </div>
+    }
+  </div>
+</section>
