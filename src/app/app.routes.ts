@@ -15,6 +15,7 @@ import { NotfoundComponent } from './features/notfound/notfound.component';
 import { authGuard } from './core/guards/auth-guard';
 import { WishlistComponent } from './features/wishlist/wishlist.component';
 import { CategoryDetailsComponent } from './features/category-details/category-details.component';
+import { AllordersComponent } from './features/allorders/allorders.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -42,9 +43,12 @@ export const routes: Routes = [
       { path: 'details/:id/:slug', component: DetailsComponent, title: 'Details' },
       { path: 'details/:id', component: DetailsComponent, title: 'Details' },
       { path: 'wishlist', component: WishlistComponent, title: 'wishlist' },
+      { path: 'allorders', component:AllordersComponent, title: 'allorders' },
+
+      
 
 
-      { path: 'checkout/:id ', component: CheckoutComponent, title: 'Checkout' },
+      { path: 'checkout/:id', component: CheckoutComponent, title: 'Checkout' },
     ],
   },
   { path: '**', component: NotfoundComponent, title: 'Not Found' },

@@ -92,10 +92,7 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     console.log('Loading cart count...');
     this.cartService.getLoggedUserCart().subscribe({
       next: (response) => {
-        console.log('Full cart response:', response);
         this.cartCount = response.data?.products?.length || 0;
-        console.log('Cart count loaded:', this.cartCount);
-        console.log('Products array:', response.data?.products);
       },
       error: (err) => {
         console.log('Error loading cart count:', err);
@@ -116,7 +113,6 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     this.stopCartUpdateInterval(); // Stop any existing interval
     this.cartUpdateSubscription = interval(2000).subscribe(() => {
       if (this.isLogin) {
-        console.log('Auto-updating cart count...');
         this.loadCartCount();
       }
     });

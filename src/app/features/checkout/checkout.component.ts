@@ -36,9 +36,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   initForm() {
     this.checkoutForm = this.fb.group({
       shippingAddress: this.fb.group({
-        details: [null, Validators.required],
-        phone: [null, [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]],
-        city: [null, Validators.required]
+        details: ['', Validators.required],
+        phone: ['', [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]],
+        city: ['', Validators.required]
       })
     });
   }
@@ -59,6 +59,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   onCashPayment() {
+  
+    
     if (this.checkoutForm.valid && this.id) {
       this.isLoading = true;
       this.selectedPayment = 'cash';
@@ -85,11 +87,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       });
     } else {
       this.checkoutForm.markAllAsTouched();
-      this.toastService.warning('Please fill in all required fields.');
+      if (!this.id) {
+        this.toastService.warning('Cart ID is missing. Please try again.');
+      } else {
+        this.toastService.warning('Please fill in all required fields.');
+      }
     }
   }
 
   onVisaPayment() {
+   
+    
     if (this.checkoutForm.valid && this.id) {
       this.isLoading = true;
       this.selectedPayment = 'visa';
@@ -116,7 +124,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       });
     } else {
       this.checkoutForm.markAllAsTouched();
-      this.toastService.warning('Please fill in all required fields.');
+      if (!this.id) {
+        this.toastService.warning('Cart ID is missing. Please try again.');
+      } else {
+        this.toastService.warning('Please fill in all required fields.');
+      }
     }
   }
 
