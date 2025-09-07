@@ -37,7 +37,7 @@
                 </span>
               }
             </a>
-            <a routerLink="/wishlist" routerLinkActive="text-red-500" class="text-gray-400 hover:text-red-500 transition-colors duration-200 hover:scale-110 transform relative">
+            <a routerLink="/wishlist" routerLinkActive="text-red-500" class="text-gray-400 hover:text-red-500 transition-colors duration-200 hover:scale-110 transform relative" (click)="refreshWishlistCount()">
               <i class="fa-solid fa-heart text-xl" [ngClass]="wishlistCount > 0 ? 'text-red-500' : 'text-gray-400'"></i>
               <!-- Wishlist badge -->
               @if (wishlistCount > 0) {

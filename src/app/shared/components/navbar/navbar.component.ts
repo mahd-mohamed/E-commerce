@@ -49,7 +49,6 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     });
 
     // Set initial count from service
-    this.wishlistCount = this.wishlistService.currentWishlistCount;
 
     // Initial load if logged in
     if (this.isLogin) {
@@ -67,7 +66,6 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
       this.cartService.refreshCart();
       this.wishlistService.refreshWishlist();
       // Set initial count from service
-      this.wishlistCount = this.wishlistService.currentWishlistCount;
     } else {
       this.cartCount = 0;
       this.wishlistCount = 0;
