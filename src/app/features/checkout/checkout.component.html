@@ -1,1 +1,107 @@
-<p>checkout works!</p>
+<section class="w-full py-10 bg-gradient-to-r from-gray-900 to-gray-800">
+  <div class="w-11/12 md:w-8/12 lg:w-1/2 mx-auto">
+    <div class="text-white">
+      <div class="px-6 md:px-10 py-8 md:py-10">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl md:text-4xl font-bold gradient-text">Checkout</h1>
+          <p class="text-gray-400 mt-2">Complete your order and we'll deliver it to you</p>
+        </div>
+
+        <form [formGroup]="checkoutForm" class="space-y-6">
+          <!-- Shipping Address Section -->
+          <div class=" rounded-xl p-6 ">
+            <h2 class="text-xl font-semibold text-green-400 mb-6 flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              Shipping Address
+            </h2>
+
+            <!-- Address Details -->
+            <app-input
+              [control]="checkoutForm.get('shippingAddress.details')"
+              [typeInput]="'text'"
+              [idInput]="'addressDetails'" 
+              [labelInput]="'Address Details'">
+              Please provide your complete address including street, building, and apartment number.
+            </app-input>
+
+            <!-- Phone Number -->
+            <app-input
+              [control]="checkoutForm.get('shippingAddress.phone')"
+              [typeInput]="'tel'"
+              [idInput]="'phone'" 
+              [labelInput]="'Phone Number'">
+              Phone must be a valid Egyptian phone number (01XXXXXXXXX)
+            </app-input>
+
+            <!-- City -->
+            <app-input
+              [control]="checkoutForm.get('shippingAddress.city')"
+              [typeInput]="'text'"
+              [idInput]="'city'" 
+              [labelInput]="'City'">
+              Enter your city name
+            </app-input>
+          </div>
+
+
+          <!-- Payment Buttons -->
+          <div class="pt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Cash Payment Button -->
+            <button 
+              (click)="onCashPayment()"
+              [disabled]="isLoading"
+              type="button" 
+              class="btn-main w-full navbar-btn-primary rounded-xl py-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (isLoading && selectedPayment === 'cash') {
+                <div class="flex items-center justify-center">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing cash payment...
+                </div>
+              } @else {
+                <div class="flex items-center justify-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                  </svg>
+                  Pay with Cash
+                </div>
+              }
+            </button>
+
+            <!-- Visa Payment Button -->
+            <button 
+              (click)="onVisaPayment()"
+              [disabled]="isLoading"
+              type="button" 
+              class="btn-visa w-full rounded-xl py-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (isLoading && selectedPayment === 'visa') {
+                <div class="flex items-center justify-center">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing visa payment...
+                </div>
+              } @else {
+                <div class="flex items-center justify-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                  </svg>
+                  Pay with Visa
+                </div>
+              }
+            </button>
+          </div>
+            
+        </form>
+
+     
+      </div>
+    </div>
+  </div>
+</section>

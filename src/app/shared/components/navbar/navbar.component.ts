@@ -111,10 +111,10 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  // Start automatic cart count updates every 5 seconds
+  // Start automatic cart count updates every 2 seconds
   private startCartUpdateInterval(): void {
     this.stopCartUpdateInterval(); // Stop any existing interval
-    this.cartUpdateSubscription = interval(5000).subscribe(() => {
+    this.cartUpdateSubscription = interval(2000).subscribe(() => {
       if (this.isLogin) {
         console.log('Auto-updating cart count...');
         this.loadCartCount();

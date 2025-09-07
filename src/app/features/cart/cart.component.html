@@ -121,8 +121,8 @@
 
       <!-- Order Summary Section -->
       <div class="lg:col-span-4">
-        <div class="sticky">
-          <div class="p-6 rounded-xl">
+        <div class="sticky top-8">
+          <div class="p-6 rounded-xl backdrop-blur-sm">
             
             <!-- Summary Header -->
             <h2 class="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
@@ -139,7 +139,7 @@
             </div>
 
             <!-- Checkout Button -->
-            <button class="w-full checkout-btn bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:from-green-600 hover:to-green-700 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+            <button [routerLink]="['/checkout',cartDetails._id]" class="w-full checkout-btn bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:from-green-600 hover:to-green-700 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               <i class="fas fa-credit-card mr-2"></i>
               Proceed to Checkout
             </button>
