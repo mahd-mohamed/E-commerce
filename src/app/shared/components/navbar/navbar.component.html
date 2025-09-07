@@ -38,9 +38,13 @@
               }
             </a>
             <a routerLink="/wishlist" routerLinkActive="text-red-500" class="text-gray-400 hover:text-red-500 transition-colors duration-200 hover:scale-110 transform relative">
-              <i class="fa-solid fa-heart text-xl"></i>
-              <!-- Wishlist badge (optional - you can add wishlist count here) -->
-              <!-- <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">5</span> -->
+              <i class="fa-solid fa-heart text-xl" [ngClass]="wishlistCount > 0 ? 'text-red-500' : 'text-gray-400'"></i>
+              <!-- Wishlist badge -->
+              @if (wishlistCount > 0) {
+                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {{ wishlistCount }}
+                </span>
+              }
             </a>
           </div>
         }
@@ -97,24 +101,8 @@
         <a routerLink="/categories" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Categories</a>
         <a routerLink="/brands" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Brands</a>
         <a routerLink="/allorders" routerLinkActive="text-green-400 bg-gray-800" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">My Orders</a>
-        
-        <!-- Mobile Cart and Wishlist -->
-        <div class="flex items-center justify-center space-x-6 pt-4 border-t border-gray-700">
-          <a routerLink="/cart" routerLinkActive="text-green-400" class="text-gray-400 hover:text-green-400 transition-colors duration-200 hover:scale-110 transform relative" (click)="refreshCartCount()">
-            <i class="fas fa-shopping-cart text-2xl"></i>
-            <span class="block text-sm mt-1">Cart</span>
-            <!-- Mobile Cart badge -->
-            @if (cartCount > 0) {
-              <span class="mobile-cart-badge">
-                {{ cartCount }}
-              </span>
-            }
-          </a>
-          <a routerLink="/wishlist" routerLinkActive="text-red-500" class="text-gray-400 hover:text-red-500 transition-colors duration-200 hover:scale-110 transform">
-            <i class="fa-solid fa-heart text-2xl"></i>
-            <span class="block text-sm mt-1">Wishlist</span>
-          </a>
-        </div>
+        <!-- <a routerLink="/cart" routerLinkActive="text-green-400" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium" (click)="onLinkClick()">Cart</a>
+        <a routerLink="/wishlist" routerLinkActive="text-red-500" class="btn-main navbar-btn-primary inline-block w-full text-center py-3 px-4 rounded-lg font-medium"(click)="onLinkClick()">Wishlist</a> -->
       </div>
     }
     

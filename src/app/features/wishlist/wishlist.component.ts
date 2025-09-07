@@ -52,6 +52,7 @@ export class WishlistComponent implements OnInit {
         this.toastService.success('Product removed from wishlist!');
         // Remove the item from the local array instead of reloading all data
         this.wishlistDetails = this.wishlistDetails.filter(item => item._id !== productId);
+        // The wishlist service will automatically update the count via the tap operator
       },
       error: (err) => {
         this.toastService.error('Failed to remove product. Please try again.');

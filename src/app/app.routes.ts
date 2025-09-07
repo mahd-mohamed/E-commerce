@@ -16,6 +16,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { WishlistComponent } from './features/wishlist/wishlist.component';
 import { CategoryDetailsComponent } from './features/category-details/category-details.component';
 import { AllordersComponent } from './features/allorders/allorders.component';
+import { ForgetPasswordComponent } from './core/auth/forget-password/forget-password.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -26,6 +27,7 @@ export const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent, title: 'Login' },
       { path: 'register', component: RegisterComponent, title: 'Register' },
+      {path: 'forget', component: ForgetPasswordComponent, title: 'forget password'},
     ],
   },
   {

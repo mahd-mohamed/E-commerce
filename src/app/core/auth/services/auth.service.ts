@@ -37,4 +37,19 @@ export class AuthService {
   }
     return token;
   }
+  sendResetCode(data:object):Observable<any>{
+    return this.httpClient.post(environment.apiUrl +'/auth/forgotPasswords', data )
+
+  }
+  verifyResetCode(data:object):Observable<any>{
+    return this.httpClient.post(environment.apiUrl +'/auth/verifyResetCode', data )
+
+  }
+   resetUserPassword(data:object):Observable<any>{
+    return this.httpClient.put(environment.apiUrl +'/auth/resetPassword', data )
+
+  }
+  //  
+  //  
+  
 }

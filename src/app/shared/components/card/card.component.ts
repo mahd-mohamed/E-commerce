@@ -44,6 +44,7 @@ addToWishlist(id: string, event: Event): void {
     next: (response) => {
       console.log('Product added to wishlist:', response);
       this.toastService.success('Product added to wishlist successfully!');
+      // The wishlist service will automatically update the count via the tap operator
     },
     error: (error) => {
       console.error('Error adding product to wishlist:', error);

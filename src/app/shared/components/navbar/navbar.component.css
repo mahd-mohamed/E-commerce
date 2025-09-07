@@ -376,3 +376,23 @@
   animation: badgePulse 2s infinite;
   z-index: 10;
 }
+
+/* Mobile wishlist badge positioning */
+.mobile-wishlist-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  animation: badgePulse 2s infinite;
+  z-index: 10;
+}

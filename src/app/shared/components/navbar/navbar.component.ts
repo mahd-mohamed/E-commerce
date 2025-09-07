@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { CartService } from '../../../features/cart/services/cart.service';
-import { Subscription, interval } from 'rxjs';
+import { WishlistService } from '../../../features/wishlist/services/wishlist.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -19,11 +20,14 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   isMobileMenuOpen = false;
   isScrolled = false;
   cartCount: number = 0;
-  private cartUpdateSubscription?: Subscription;
+  wishlistCount: number = 0;
+  private cartCountSubscription?: Subscription;
+  private wishlistCountSubscription?: Subscription;
   
   constructor(private flowbiteService: FlowbiteService) {}
   private readonly authService = inject(AuthService)
   private readonly cartService = inject(CartService)
+  private readonly wishlistService = inject(WishlistService)
 
   ngOnInit(): void {
     try {
@@ -34,25 +38,39 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
       console.error('Error loading Flowbite:', error);
     }
     
-    // Load cart count if user is logged in
+    // Subscribe to cart count updates
+    this.cartCountSubscription = this.cartService.cartCount$.subscribe((count) => {
+      this.cartCount = count || 0;
+    });
+
+    // Subscribe to wishlist count updates
+    this.wishlistCountSubscription = this.wishlistService.wishlistCount$.subscribe((count) => {
+      this.wishlistCount = count || 0;
+    });
+
+    // Set initial count from service
+    this.wishlistCount = this.wishlistService.currentWishlistCount;
+
+    // Initial load if logged in
     if (this.isLogin) {
-      console.log('User is logged in, loading cart count...');
-      this.loadCartCount();
-      this.startCartUpdateInterval();
+      this.cartService.refreshCart();
+      this.wishlistService.refreshWishlist();
     } else {
-      console.log('User is not logged in, cart count set to 0');
       this.cartCount = 0;
+      this.wishlistCount = 0;
     }
   }
 
   ngOnChanges(): void {
-    // Reload cart count when isLogin changes
+    // Reload cart and wishlist when isLogin changes
     if (this.isLogin) {
-      this.loadCartCount();
-      this.startCartUpdateInterval();
+      this.cartService.refreshCart();
+      this.wishlistService.refreshWishlist();
+      // Set initial count from service
+      this.wishlistCount = this.wishlistService.currentWishlistCount;
     } else {
       this.cartCount = 0;
-      this.stopCartUpdateInterval();
+      this.wishlistCount = 0;
     }
   }
 
@@ -89,45 +107,34 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadCartCount(): void {
-    console.log('Loading cart count...');
-    this.cartService.getLoggedUserCart().subscribe({
-      next: (response) => {
-        this.cartCount = response.data?.products?.length || 0;
-      },
-      error: (err) => {
-        console.log('Error loading cart count:', err);
-        this.cartCount = 0;
-      }
-    });
+    // Backwards compatibility method; now just ensures refresh
+    this.cartService.refreshCart();
   }
 
   // Public method to refresh cart count (can be called from parent components)
   refreshCartCount(): void {
     if (this.isLogin) {
-      this.loadCartCount();
+      this.cartService.refreshCart();
     }
   }
 
-  // Start automatic cart count updates every 2 seconds
-  private startCartUpdateInterval(): void {
-    this.stopCartUpdateInterval(); // Stop any existing interval
-    this.cartUpdateSubscription = interval(2000).subscribe(() => {
-      if (this.isLogin) {
-        this.loadCartCount();
-      }
-    });
-  }
-
-  // Stop automatic cart count updates
-  private stopCartUpdateInterval(): void {
-    if (this.cartUpdateSubscription) {
-      this.cartUpdateSubscription.unsubscribe();
-      this.cartUpdateSubscription = undefined;
+  // Public method to refresh wishlist count (can be called from parent components)
+  refreshWishlistCount(): void {
+    if (this.isLogin) {
+      this.wishlistService.refreshWishlist();
     }
   }
+
 
   // Clean up subscriptions when component is destroyed
   ngOnDestroy(): void {
-    this.stopCartUpdateInterval();
+    if (this.cartCountSubscription) {
+      this.cartCountSubscription.unsubscribe();
+      this.cartCountSubscription = undefined;
+    }
+    if (this.wishlistCountSubscription) {
+      this.wishlistCountSubscription.unsubscribe();
+      this.wishlistCountSubscription = undefined;
+    }
   }
 }
