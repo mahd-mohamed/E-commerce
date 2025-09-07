@@ -41,12 +41,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'checkout/:id',
-    renderMode: RenderMode.Prerender,
-    getPrerenderParams: async () => [
-      { id: '1' },
-      { id: '2' },
-      { id: '3' }
-    ]
+    renderMode: RenderMode.Server
   },
   {
     path: '**',
