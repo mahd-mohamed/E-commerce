@@ -3,12 +3,16 @@ import { provideRouter, withViewTransitions, withInMemoryScrolling } from '@angu
 import {CookieService} from 'ngx-cookie-service';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { headersInterceptor } from './core/interceptor/headers-interceptor';
+import { errorInterceptor } from './core/interceptor/error-interceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(),withInterceptors([headersInterceptor , errorInterceptor ])),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
@@ -17,6 +21,8 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'top' })
     ),
     provideClientHydration(withEventReplay()),
-    importProvidersFrom(CookieService)
+    importProvidersFrom(CookieService , NgxSpinnerModule
+
+    )
   ]
 };
