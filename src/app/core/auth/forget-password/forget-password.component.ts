@@ -34,6 +34,11 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
+  get progressPercent(): number {
+    const totalSteps = 4;
+    return Math.round(((this.currentStep - 1) / (totalSteps - 1)) * 100);
+  }
+
   initForm(): void {
     this.verifyEmail = this.fb.group({
       email: [null, [Validators.required, Validators.email]]

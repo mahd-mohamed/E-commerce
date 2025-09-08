@@ -2,7 +2,7 @@
         <div class="relative mb-2">
 
           <input [formControl]="control"
-           [id]="idInput" name="name" [type]="typeInput ||( flag ? 'password' : 'text')" placeholder=" "
+           [id]="idInput" name="name" [type]="(idInput === 'password' || idInput === 'rePassword') ? (flag ? 'password' : 'text') : (typeInput || 'text')" placeholder=" "
                  [class.border-green-500]="control?.valid && (control?.touched || control?.dirty)"
                  [class.border-red-500]="control?.invalid && (control?.touched || control?.dirty)"
                  [class.border-gray-700]="!(control?.touched || control?.dirty)"
