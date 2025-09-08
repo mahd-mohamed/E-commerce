@@ -24,7 +24,11 @@ export class VisaService {
     };
     
     // return this.httpClient.post(`${environment.apiUrl}/orders/checkout-session/${cartId}?url=http://localhost:4200`, orderData, this.myHeaders);
-    return this.httpClient.post(`${environment.apiUrl}/orders/checkout-session/${cartId}?url=https://mahdecommerce.vercel.app`, orderData, this.myHeaders);
+return this.httpClient.post(
+  `${environment.apiUrl}/orders/checkout-session/${cartId}?url=https://mahdecommerce.vercel.app`,
+  orderData,
+  this.myHeaders
+);
 
   }
 }
