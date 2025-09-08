@@ -37,11 +37,11 @@
                 </span>
               }
             </a>
-            <a routerLink="/wishlist" routerLinkActive="text-red-500" class="text-gray-400 hover:text-red-600 transition-colors duration-200 hover:scale-110 transform relative" (click)="refreshWishlistCount()">
+            <a routerLink="/wishlist" routerLinkActive="text-pink-500" class="text-gray-400 hover:text-pink-600 transition-colors duration-200 hover:scale-110 transform relative" (click)="refreshWishlistCount()">
               <i class="fa-solid fa-heart text-xl"></i>
               <!-- Wishlist badge -->
               @if (wishlistCount > 0) {
-                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span class="cart-badge" >
                   {{ wishlistCount }}
                 </span>
               }

@@ -46,10 +46,8 @@ export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
     // Subscribe to wishlist count updates
     this.wishlistCountSubscription = this.wishlistService.wishlistCount$.subscribe((count) => {
       this.wishlistCount = count || 0;
-      console.log("hello")
     });
 
-    // Set initial count from service
 
     // Initial load if logged in
     if (this.isLogin) {

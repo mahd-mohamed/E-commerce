@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../cart/services/cart.service';
 import { ToastService } from '../../core/services/toast.service';
+import { WishlistService } from '../wishlist/services/wishlist.service';
 
 @Component({
   selector: 'app-details',
@@ -19,6 +20,8 @@ export class DetailsComponent implements OnInit {
   private readonly detailsService= inject(DetailsService);
   private readonly cartService = inject(CartService);
   private readonly toastService = inject(ToastService);
+  private readonly wishlistService= inject(WishlistService);
+
   
   productdetails:Product = {} as Product;
 
@@ -94,6 +97,18 @@ export class DetailsComponent implements OnInit {
       error: (error) => {
         console.error('Error adding product to cart:', error);
         this.toastService.error('Failed to add product to cart. Please try again.');
+      }
+    });
+  }
+    addToWishlist(id: string): void {
+    this.wishlistService.addProductToWishlist(id).subscribe({
+      next: (response) => {
+        console.log('Product added to wishlist:', response);
+        this.toastService.success('Product added to wishlist successfully!');
+      },
+      error: (error) => {
+        console.error('Error adding product to wishlist:', error);
+        this.toastService.error('Failed to add product to wishlist. Please try again.');
       }
     });
   }

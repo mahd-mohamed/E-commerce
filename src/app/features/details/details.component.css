@@ -418,6 +418,7 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .btn {
@@ -434,13 +435,13 @@
   transition: all 0.3s ease;
   text-decoration: none;
   text-align: center;
-  width: 100%;
+  width: auto;
 }
 
 .btn-primary {
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
-  flex: 2;
+  flex: 1;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -466,6 +467,37 @@
   background: #10b981;
   color: white;
   transform: translateY(-2px);
+}
+
+/* Wishlist button variant */
+.btn-wishlist {
+  background: transparent;
+  color: #ec4899; /* pink-500 */
+  border: 2px solid #ec4899;
+  flex: 1;
+}
+
+.btn-wishlist:hover {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+}
+
+.btn-wishlist:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25);
+}
+
+/* Subtle icon animation for buttons */
+.btn i {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.btn:hover i {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 /* Additional Info */

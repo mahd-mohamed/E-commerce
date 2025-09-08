@@ -36,7 +36,12 @@ export class AllordersComponent implements OnInit, OnDestroy {
 
     this.subscription = this.ordersService.getUserOrders().subscribe({
       next: (orders) => {
-        this.orders = orders;
+        // Sort orders by newest first based on createdAt
+        this.orders = [...orders].sort((a, b) => {
+          const timeA = new Date(a.createdAt).getTime();
+          const timeB = new Date(b.createdAt).getTime();
+          return timeB - timeA;
+        });
         this.isLoading = false;
       },
       error: (error) => {

@@ -49,6 +49,9 @@ export class AuthService {
     return this.httpClient.put(environment.apiUrl +'/auth/resetPassword', data )
 
   }
+  verifyToken():Observable<any>{
+    return this.httpClient.get(environment.apiUrl + '/auth/verifyToken')
+  }
   //  
   //  
   

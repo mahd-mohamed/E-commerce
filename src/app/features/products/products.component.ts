@@ -54,10 +54,7 @@ export class ProductsComponent implements OnInit {
     return Math.round(discount);
   }
 
-  addToCart(product: Product): void {
-    // TODO: Implement add to cart functionality
-    console.log('Adding to cart:', product.title);
-  }
+ 
 
 
   pageChanged(page:number): void {
