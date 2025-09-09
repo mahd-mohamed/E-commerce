@@ -5,6 +5,9 @@ import { CardComponent } from "../../shared/components/card/card.component";
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import { SearchPipe } from '../../shared/pipes/search-pipe';
 import { FormsModule } from '@angular/forms';
+import { WishlistService } from '../../features/wishlist/services/wishlist.service';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-products',
@@ -15,6 +18,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductsComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  private readonly wishlistService = inject(WishlistService);
+  private readonly cookieService = inject(CookieService);
+  
   productlist: Product[] = [];
   pageSize!:number 
   p!:number; 
@@ -25,6 +31,11 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
+    // Load wishlist data if user is logged in
+    const token = this.cookieService.get('token');
+    if (token) {
+      this.wishlistService.refreshWishlist();
+    }
   }
 
   getProducts(pageNumber:number = 1): void {

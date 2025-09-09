@@ -19,6 +19,11 @@ export class WishlistService {
     return this.wishlistCountSubject.value;
   }
 
+  // Getter for current wishlist state value
+  get currentWishlistState(): any {
+    return this.wishlistStateSubject.value;
+  }
+
   private readonly wishlistStateSubject = new BehaviorSubject<any | null>(null)
   readonly wishlistState$ = this.wishlistStateSubject.asObservable()
 

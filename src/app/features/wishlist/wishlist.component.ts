@@ -65,11 +65,30 @@ export class WishlistComponent implements OnInit {
     this.cartService.addProductToCart(productId).subscribe({
       next: (response) => {
         console.log('Product added to cart:', response);
-        this.toastService.success('Product added to cart successfully!');
+        
+        // Remove the item from wishlist after successfully adding to cart
+        this.removeItemFromWishlist(productId);
       },
       error: (error) => {
         console.error('Error adding product to cart:', error);
         this.toastService.error('Failed to add product to cart. Please try again.');
+      }
+    });
+  }
+
+  private removeItemFromWishlist(productId: string) {
+    this.wishlistService.removeWishlistItem(productId).subscribe({
+      next: (response) => {
+        console.log('Product removed from wishlist after adding to cart:', response);
+        // Remove the item from the local array instead of reloading all data
+        this.wishlistDetails = this.wishlistDetails.filter(item => item._id !== productId);
+        // The wishlist service will automatically update the count via the tap operator
+        this.toastService.success('Product moved from wishlist to cart!');
+      },
+      error: (err) => {
+        console.error('Error removing product from wishlist:', err);
+        // Don't show error to user as the main action (add to cart) was successful
+        // Just log the error for debugging
       }
     });
   }
